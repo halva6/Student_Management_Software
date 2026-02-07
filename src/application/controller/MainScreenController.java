@@ -10,11 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainScreenController extends Controller implements Initializable
@@ -39,27 +41,36 @@ public class MainScreenController extends Controller implements Initializable
 	@FXML
 	private Button newStudent;
 
-	private ObservableList<Student> initialStudent = FXCollections.observableArrayList(
-			new Student("Heinz", "Maier", 123, 2.2), new Student("Wolgang", "Schmidt", 161, 4.5),
-			new Student("Pein", "Lich", 1312, 1.23));
-	
+	private ObservableList<Student> initialStudent = FXCollections.observableArrayList();
+
 	@FXML
 	private void addStudent()
 	{
 		try
 		{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(NewStudentScreenController.NEW_STUDENT_SCREEN_FXML_PATH));
-			
-			Scene scene = new Scene(loader.load(), 900, 600);
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource(StudentScreenController.NEW_STUDENT_SCREEN_FXML_PATH));
+			Parent root = loader.load();
+
+			StudentScreenController studentScreenController = loader.getController();
+
+			Scene scene = new Scene(root, 900, 600);
 			Stage stage = new Stage();
 			stage.setTitle("Add a new student");
 			stage.setScene(scene);
-			stage.show();
+
+			studentScreenController.setStage(stage);
+
+			stage.showAndWait();
+			
+			overviewTable.getItems().add(studentScreenController.getStudent());
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();
+			System.out.println("Error because of loading the fxml-file");
 		}
-			}
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
