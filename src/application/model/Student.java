@@ -1,15 +1,17 @@
 package application.model;
 
+import java.util.ArrayList;
+
 public class Student
 {
 	private String firstName;
 	private String lastName;
-	private int matriculationNumber;
+	private int matriculationNumber; //TODO Unique machen der Matrikel-Nummber, also wenn die schon vergeben ist, soll sie nicht nochmal vergeben sein
 	private String studyProgram;
 	private String eMail;
-	
-	private ExaminationPerformance examinationPerformance;
-	private double gradePointAvrage;
+
+	//private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<ExaminationPerformance>();
+	private double gradePointAvrage = 0;
 
 	public String getFirstName()
 	{
@@ -25,43 +27,37 @@ public class Student
 	{
 		return matriculationNumber;
 	}
-	
-	public String getStudyProgram() 
+
+	public String getStudyProgram()
 	{
 		return studyProgram;
 	}
-	
-	public String getEMail() 
+
+	public String getEMail()
 	{
 		return eMail;
 	}
-	
-	public double getGradePointAvrage() 
+
+	public double getGradePointAvrage()
 	{
 		return gradePointAvrage;
 	}
-	
-	public ExaminationPerformance getExaminationPerformance() 
-	{
-		return examinationPerformance;
-	}
 
-	public Student(String firstName, String lastName, int matriculationNumber, String studyProgram, String eMail, ExaminationPerformance examinationPerformance)
+	public Student(String firstName, String lastName, int matriculationNumber, String studyProgram, String eMail,
+			ArrayList<ExaminationPerformance> examinationPerformances)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.matriculationNumber = matriculationNumber;
 		this.studyProgram = studyProgram;
 		this.eMail = eMail;
-		this.examinationPerformance = examinationPerformance;
-		this.gradePointAvrage = examinationPerformance.getAvrage();
-	}
+		//this.examinationPerformances = examinationPerformances;
 
-	@Override
-	public String toString()
-	{
-		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", matriculationNumber="
-				+ matriculationNumber + ", studyProgram=" + studyProgram + ", eMail=" + eMail
-				+ ", examinationPerformance=" + examinationPerformance.toString() + "]";
+		for (ExaminationPerformance examinationPerformance : examinationPerformances)
+		{
+			gradePointAvrage += examinationPerformance.getGrade();
+		}
+		
+		gradePointAvrage /= examinationPerformances.size(); //TODO Fehlerbehandlung, Division durch 0
 	}
 }

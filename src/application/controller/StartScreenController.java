@@ -5,9 +5,10 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
-public class StartScreenController extends Controller
+public class StartScreenController
 {
 
 	public static String START_SCREEN_FXML_PATH = "/StartScreenView.fxml";
@@ -15,25 +16,25 @@ public class StartScreenController extends Controller
 	@FXML
 	private Button startButton;
 
+	private Scene scene;
+
 	@FXML
 	private void startMainScreen()
 	{
-
 		try
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(MainScreenController.MAIN_SCREEN_FXML_PATH));
 			Parent mainRoot = loader.load();
-
-			MainScreenController mainScreenController = loader.getController();
-			mainScreenController.setScene(scene);
-
 			scene.setRoot(mainRoot);
 
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 
+	public void setScene(Scene scene)
+	{
+		this.scene = scene;
 	}
 }

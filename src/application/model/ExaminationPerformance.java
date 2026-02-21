@@ -4,51 +4,96 @@ import java.util.Arrays;
 
 public class ExaminationPerformance
 {
-	private double results[] = new double[3];
-	private String dates[] = new String[3];
+	private String examName;
+	private String examDiscription;
+	private String examType;
+	private int semesterNumber;
+	private double grade;
+	private boolean passed = true;
+	private int attemps;
 
-	public double getAvrage()
+	private double[] attemptResults = new double[3];
+	private String[] attemptDates = new String[3];
+
+	public ExaminationPerformance(String examName, String examDiscription, String examType, int semesterNumber,
+			int attempts, double[] attemptResults, String[] attemptDates)
 	{
-		int avrageCount = 0;
-		double avrageSum = 0;
-		for (double result : results)
+		this.examName = examName;
+		this.examDiscription = examDiscription;
+		this.examType = examType;
+		this.semesterNumber = semesterNumber;
+		this.attemps = attempts;
+
+		this.attemptResults = attemptResults;
+		this.attemptDates = attemptDates;
+
+		double grade = attemptResults[0];
+
+		for (int i = 0; i < attempts; i++)
 		{
-			if (result != 0)
-			{
-				avrageSum += result;
-				avrageCount++;
-			}
+			grade = (attemptResults[i] < grade) ? attemptResults[i] : grade;
 		}
 
-		if (avrageCount != 0)
+		if (grade > 4.0)
 		{
-			return avrageSum / avrageCount;
+			this.passed = false;
 		}
-		
-		return -1;
 
+		this.grade = grade;
 	}
 
-	public void addExam(double result, String date, int attempt)
+	public String getExamName()
 	{
-		results[attempt] = result;
-		dates[attempt] = date;
+		return examName;
 	}
 
-	public double getResult(int attempt)
+	public String getExamDiscription()
 	{
-		return results[attempt];
+		return examDiscription;
 	}
 
-	public String getDate(int attempt)
+	public String getExamType()
 	{
-		return dates[attempt];
+		return examType;
+	}
+
+	public int getSemesterNumber()
+	{
+		return semesterNumber;
+	}
+
+	public double getGrade()
+	{
+		return grade;
+	}
+
+	public boolean isPassed()
+	{
+		return passed;
+	}
+
+	public double[] getAttemptResults()
+	{
+		return attemptResults;
+	}
+
+	public String[] getAttemptDates()
+	{
+		return attemptDates;
+	}
+
+	public int getAttempts()
+	{
+		return attemps;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "ExaminationPerformance [results=" + Arrays.toString(results) + ", dates=" + Arrays.toString(dates)
-				+ "]";
+		return "ExaminationPerformance [examName=" + examName + ", examDiscription=" + examDiscription + ", examType="
+				+ examType + ", semesterNumber=" + semesterNumber + ", grade=" + grade + ", passed=" + passed
+				+ ", attemps=" + attemps + ", attemptResults=" + Arrays.toString(attemptResults) + ", attemptDates="
+				+ Arrays.toString(attemptDates) + "]";
 	}
+
 }
