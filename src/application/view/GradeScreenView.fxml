@@ -68,7 +68,7 @@
                   <TextField fx:id="secondResultInput" promptText="2. Result" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="thirdResultInput" promptText="3. Result" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <DatePicker fx:id="firstAttemptDate" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="secondAnttemptDate" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="secondAttemptDate" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <DatePicker fx:id="thirdAttemptDate" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                </children>
                <VBox.margin>

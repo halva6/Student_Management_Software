@@ -11,8 +11,7 @@ public class Student
 	private String studyProgram;
 	private String eMail;
 
-	// private ArrayList<ExaminationPerformance> examinationPerformances = new
-	// ArrayList<ExaminationPerformance>();
+	private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<ExaminationPerformance>();
 	private double gradePointAvrage = 0;
 
 	public String getFirstName()
@@ -45,6 +44,11 @@ public class Student
 		return gradePointAvrage;
 	}
 
+	public ArrayList<ExaminationPerformance> getExaminationPerformances()
+	{
+		return examinationPerformances;
+	}
+
 	public Student(String firstName, String lastName, int matriculationNumber, String studyProgram, String eMail, ArrayList<ExaminationPerformance> examinationPerformances)
 	{
 		this.firstName = firstName;
@@ -52,7 +56,7 @@ public class Student
 		this.matriculationNumber = matriculationNumber;
 		this.studyProgram = studyProgram;
 		this.eMail = eMail;
-		// this.examinationPerformances = examinationPerformances;
+		this.examinationPerformances = examinationPerformances;
 
 		for (ExaminationPerformance examinationPerformance : examinationPerformances)
 		{

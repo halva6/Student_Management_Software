@@ -48,8 +48,8 @@ public class MainScreenController extends Windows<StudentScreenController> imple
 	@FXML
 	private void addStudent()
 	{
-		openWindow(StudentScreenController.STUDENT_SCREEN_FXML_PATH, "Add new Student", 900, 600);
-		Student student = getController().getStudent();
+
+		Student student = openWindow(StudentScreenController.STUDENT_SCREEN_FXML_PATH, "Add new Student", 900, 600).getStudent();
 
 		if (student != null)
 		{
@@ -63,12 +63,24 @@ public class MainScreenController extends Windows<StudentScreenController> imple
 	{
 		int selectedID = overviewTable.getSelectionModel().getSelectedIndex();
 		overviewTable.getItems().remove(selectedID);
+		initialStudent.remove(selectedID);
+		students.remove(selectedID);
 	}
 
 	@FXML
 	void editStudent()
 	{
+		int selectedID = overviewTable.getSelectionModel().getSelectedIndex();
+		if (selectedID != -1)
+		{
+			Student oldStudent = students.get(selectedID);
 
+			StudentScreenController studentScreenController = openWindow(StudentScreenController.STUDENT_SCREEN_FXML_PATH, "Edit Student", 900, 600, s -> s.setStudent(oldStudent));
+
+			Student newStudent = studentScreenController.getStudent();
+			students.set(selectedID, newStudent);
+			initialStudent.set(selectedID, newStudent);
+		}
 	}
 
 	@Override

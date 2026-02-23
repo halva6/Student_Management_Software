@@ -1,6 +1,8 @@
 package application.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import application.model.ExaminationPerformance;
@@ -45,7 +47,7 @@ public class GradeScreenController implements Initializable
 	private DatePicker firstAttemptDate;
 
 	@FXML
-	private DatePicker secondAnttemptDate;
+	private DatePicker secondAttemptDate;
 
 	@FXML
 	private DatePicker thirdAttemptDate;
@@ -59,7 +61,10 @@ public class GradeScreenController implements Initializable
 	@FXML
 	private Button cancelButton;
 
-	private ExaminationPerformance ep;
+	private ExaminationPerformance examinationPerformance;
+
+	private TextField[] resultInputs = new TextField[3];
+	private DatePicker[] attemptDatePickers = new DatePicker[3];
 
 	@FXML
 	private void applyAndClose(ActionEvent event)
@@ -71,9 +76,6 @@ public class GradeScreenController implements Initializable
 		}
 		double[] attemptResults = new double[3];
 		String[] attemptDates = new String[3];
-
-		TextField[] resultInputs = { firstResultInput, secondResultInput, thirdResultInput };
-		DatePicker[] attemptDatePickers = { firstAttemptDate, secondAnttemptDate, thirdAttemptDate };
 
 		int attemps = 0;
 
@@ -106,14 +108,34 @@ public class GradeScreenController implements Initializable
 			System.out.println(i);
 		}
 
-		ep = new ExaminationPerformance(nameInput.getText(), descriptionInput.getText(), examTypeChoiceBox.getValue(), semesterSpinner.getValue(), attemps, attemptResults, attemptDates);
+		examinationPerformance = new ExaminationPerformance(nameInput.getText(), descriptionInput.getText(), examTypeChoiceBox.getValue(), semesterSpinner.getValue(), attemps, attemptResults,
+				attemptDates);
 
 		cancel(event);
 	}
 
 	public ExaminationPerformance getExaminationPerformance()
 	{
-		return ep;
+		return examinationPerformance;
+	}
+
+	public void setExaminationPerformance(ExaminationPerformance examinationPerformance)
+	{
+		nameInput.setText(examinationPerformance.getExamName());
+		descriptionInput.setText(examinationPerformance.getExamDiscription());
+		examTypeChoiceBox.setValue(examinationPerformance.getExamType());
+
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(examinationPerformance.getSemesterNumber(), 100, 1);
+		semesterSpinner.setValueFactory(valueFactory);
+
+		for (int i = 0; i < examinationPerformance.getAttempts(); i++)
+		{
+			resultInputs[i].setText(String.valueOf(examinationPerformance.getAttemptResults()[i]));
+
+			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate dateTime = LocalDate.parse(examinationPerformance.getAttemptDates()[i], dateTimeFormatter);
+			attemptDatePickers[i].setValue(dateTime);
+		}
 	}
 
 	@FXML
@@ -127,6 +149,14 @@ public class GradeScreenController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		resultInputs[0] = firstResultInput;
+		resultInputs[1] = secondResultInput;
+		resultInputs[2] = thirdResultInput;
+
+		attemptDatePickers[0] = firstAttemptDate;
+		attemptDatePickers[1] = secondAttemptDate;
+		attemptDatePickers[2] = thirdAttemptDate;
+
 		examTypeChoiceBox.getItems().addAll("examination", "academic paper");
 		examTypeChoiceBox.setValue("examination");
 

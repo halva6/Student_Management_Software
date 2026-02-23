@@ -106,6 +106,21 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 		return student;
 	}
 
+	public void setStudent(Student student)
+	{
+		firstNameInput.setText(student.getFirstName());
+		lastNameInput.setText(student.getLastName());
+		matriculationNumberInput.setText(String.valueOf(student.getMatriculationNumber()));
+		studyProgramInput.setText(student.getStudyProgram());
+		eMailInput.setText(student.getEMail());
+		examinationPerformances = student.getExaminationPerformances();
+
+		for (ExaminationPerformance examinationPerformance : examinationPerformances)
+		{
+			examList.add(examinationPerformance);
+		}
+	}
+
 	@FXML
 	private void exitView(ActionEvent event)
 	{
@@ -117,8 +132,8 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 	@FXML
 	private void addExam(ActionEvent event)
 	{
-		openWindow(GradeScreenController.GRADE_SCREEN_FXML_PATH, "Add an exam", 600, 400);
-		ExaminationPerformance examinationPerformance = getController().getExaminationPerformance();
+
+		ExaminationPerformance examinationPerformance = openWindow(GradeScreenController.GRADE_SCREEN_FXML_PATH, "Add an Exam", 600, 400).getExaminationPerformance();
 
 		if (examinationPerformance != null)
 		{
@@ -130,7 +145,17 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 	@FXML
 	void editExam(ActionEvent event)
 	{
+		int selectedID = examTable.getSelectionModel().getSelectedIndex();
+		if (selectedID != -1)
+		{
+			ExaminationPerformance oldExaminationPerformance = examinationPerformances.get(selectedID);
 
+			GradeScreenController gradeScreenController = openWindow(GradeScreenController.GRADE_SCREEN_FXML_PATH, "Edit Exam", 600, 400, g -> g.setExaminationPerformance(oldExaminationPerformance));
+
+			ExaminationPerformance newExaminationPerformance = gradeScreenController.getExaminationPerformance();
+			examinationPerformances.set(selectedID, newExaminationPerformance);
+			examList.set(selectedID, newExaminationPerformance);
+		}
 	}
 
 	@FXML
@@ -138,6 +163,8 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 	{
 		int selectedID = examTable.getSelectionModel().getSelectedIndex();
 		examTable.getItems().remove(selectedID);
+		examinationPerformances.remove(selectedID);
+		examList.remove(selectedID);
 	}
 
 	@Override
