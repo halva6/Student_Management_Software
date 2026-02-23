@@ -31,6 +31,12 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="250.0" />
         </rowConstraints>
          <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+            <TextField fx:id="firstNameInput" promptText="First Name" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="50.0" right="50.0" />
+               </GridPane.margin>
+            </TextField>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" GridPane.rowIndex="1" />
             <TextField fx:id="lastNameInput" promptText="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
@@ -41,25 +47,19 @@
                <GridPane.margin>
                   <Insets left="50.0" right="50.0" />
                </GridPane.margin></TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Study Program" GridPane.rowIndex="3" />
             <TextField fx:id="studyProgramInput" promptText="Study Program" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="50.0" right="50.0" />
                </GridPane.margin></TextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Study Program" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" GridPane.rowIndex="4" />
             <TextField fx:id="eMailInput" promptText="E-Mail" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="50.0" right="50.0" />
                </GridPane.margin></TextField>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" GridPane.rowIndex="4" />
             <Separator prefWidth="511.0" GridPane.rowIndex="5" />
             <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Examination Performance" GridPane.rowIndex="6" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-            <TextField fx:id="firstNameInput" promptText="First Name" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="50.0" right="50.0" />
-               </GridPane.margin>
-            </TextField>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <TableView fx:id="examTable" prefHeight="200.0" prefWidth="200.0">

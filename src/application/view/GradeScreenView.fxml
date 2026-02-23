@@ -13,8 +13,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GradeScreenController">
    <center>
@@ -77,6 +77,11 @@
             </GridPane>
             <HBox alignment="CENTER_RIGHT" spacing="50.0">
                <children>
+                  <Text fx:id="errorText" fill="#d30c0c" strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
                   <Button fx:id="applyAndCloseButton" mnemonicParsing="false" onAction="#applyAndClose" text="Apply and Close" />
                   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
                </children>

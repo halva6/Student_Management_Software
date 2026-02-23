@@ -15,8 +15,7 @@ public class ExaminationPerformance
 	private double[] attemptResults = new double[3];
 	private String[] attemptDates = new String[3];
 
-	public ExaminationPerformance(String examName, String examDiscription, String examType, int semesterNumber,
-			int attempts, double[] attemptResults, String[] attemptDates)
+	public ExaminationPerformance(String examName, String examDiscription, String examType, int semesterNumber, int attempts, double[] attemptResults, String[] attemptDates)
 	{
 		this.examName = examName;
 		this.examDiscription = examDiscription;
@@ -90,10 +89,8 @@ public class ExaminationPerformance
 	@Override
 	public String toString()
 	{
-		return "ExaminationPerformance [examName=" + examName + ", examDiscription=" + examDiscription + ", examType="
-				+ examType + ", semesterNumber=" + semesterNumber + ", grade=" + grade + ", passed=" + passed
-				+ ", attemps=" + attemps + ", attemptResults=" + Arrays.toString(attemptResults) + ", attemptDates="
-				+ Arrays.toString(attemptDates) + "]";
+		return "ExaminationPerformance [examName=" + examName + ", examDiscription=" + examDiscription + ", examType=" + examType + ", semesterNumber=" + semesterNumber + ", grade=" + grade
+				+ ", passed=" + passed + ", attemps=" + attemps + ", attemptResults=" + Arrays.toString(attemptResults) + ", attemptDates=" + Arrays.toString(attemptDates) + "]";
 	}
 
 }

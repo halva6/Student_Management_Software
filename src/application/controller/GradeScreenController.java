@@ -14,6 +14,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GradeScreenController implements Initializable
@@ -50,16 +51,24 @@ public class GradeScreenController implements Initializable
 	private DatePicker thirdAttemptDate;
 
 	@FXML
+	private Text errorText;
+
+	@FXML
 	private Button applyAndCloseButton;
 
 	@FXML
 	private Button cancelButton;
-	
+
 	private ExaminationPerformance ep;
 
 	@FXML
 	private void applyAndClose(ActionEvent event)
 	{
+		if (nameInput.getText().isBlank() || descriptionInput.getText().isBlank())
+		{
+			errorText.setText("There are empty fields.");
+			return;
+		}
 		double[] attemptResults = new double[3];
 		String[] attemptDates = new String[3];
 
@@ -70,26 +79,39 @@ public class GradeScreenController implements Initializable
 
 		for (int i = 0; i < resultInputs.length; i++)
 		{
-			if (resultInputs[i].getText() != "" && attemptDatePickers[i].getValue() != null)
+			if (!resultInputs[i].getText().isBlank() && attemptDatePickers[i].getValue() != null)
 			{
-				attemptResults[i] = Double.valueOf(resultInputs[i].getText()); // TODO Fehlermeldung wenn der Input
-																				// falsch ist
+				try
+				{
+					attemptResults[i] = Double.valueOf(resultInputs[i].getText());
+				} catch (NumberFormatException e)
+				{
+					e.printStackTrace();
+					errorText.setText("Incorrect parameter type in one of the result input fields.");
+					return;
+				}
+
 				attemptDates[i] = attemptDatePickers[i].getValue().toString();
 			} else
 			{
-				// TODO Fehlermeldung wenn schon das erste Eingabefeld leer ist
+				// Überprüft ob überhaupt ein Prüfungsergebnis eingetragen wurde
+				if (i == 0)
+				{
+					errorText.setText("You need at least one exam result.");
+					return;
+				}
 				attemps = i;
 				break;
 			}
+			System.out.println(i);
 		}
 
-		 ep = new ExaminationPerformance(nameInput.getText(), descriptionInput.getText(),
-				examTypeChoiceBox.getValue(), semesterSpinner.getValue(), attemps, attemptResults, attemptDates);
-		 
-		 cancel(event);
+		ep = new ExaminationPerformance(nameInput.getText(), descriptionInput.getText(), examTypeChoiceBox.getValue(), semesterSpinner.getValue(), attemps, attemptResults, attemptDates);
+
+		cancel(event);
 	}
-	
-	public ExaminationPerformance getExaminationPerformance() 
+
+	public ExaminationPerformance getExaminationPerformance()
 	{
 		return ep;
 	}

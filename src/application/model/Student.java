@@ -6,11 +6,13 @@ public class Student
 {
 	private String firstName;
 	private String lastName;
-	private int matriculationNumber; //TODO Unique machen der Matrikel-Nummber, also wenn die schon vergeben ist, soll sie nicht nochmal vergeben sein
+	private int matriculationNumber; // TODO Unique machen der Matrikel-Nummber, also wenn die schon vergeben ist,
+										// soll sie nicht nochmal vergeben sein
 	private String studyProgram;
 	private String eMail;
 
-	//private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<ExaminationPerformance>();
+	// private ArrayList<ExaminationPerformance> examinationPerformances = new
+	// ArrayList<ExaminationPerformance>();
 	private double gradePointAvrage = 0;
 
 	public String getFirstName()
@@ -43,21 +45,28 @@ public class Student
 		return gradePointAvrage;
 	}
 
-	public Student(String firstName, String lastName, int matriculationNumber, String studyProgram, String eMail,
-			ArrayList<ExaminationPerformance> examinationPerformances)
+	public Student(String firstName, String lastName, int matriculationNumber, String studyProgram, String eMail, ArrayList<ExaminationPerformance> examinationPerformances)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.matriculationNumber = matriculationNumber;
 		this.studyProgram = studyProgram;
 		this.eMail = eMail;
-		//this.examinationPerformances = examinationPerformances;
+		// this.examinationPerformances = examinationPerformances;
 
 		for (ExaminationPerformance examinationPerformance : examinationPerformances)
 		{
 			gradePointAvrage += examinationPerformance.getGrade();
 		}
-		
-		gradePointAvrage /= examinationPerformances.size(); //TODO Fehlerbehandlung, Division durch 0
+
+		try
+		{
+			gradePointAvrage /= examinationPerformances.size();
+		} catch (ArithmeticException e)
+		{
+			e.printStackTrace();
+			System.out.println("There are no examination performances.");
+		}
+
 	}
 }

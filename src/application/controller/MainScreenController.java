@@ -44,22 +44,24 @@ public class MainScreenController extends Windows<StudentScreenController> imple
 	{
 		openWindow(StudentScreenController.STUDENT_SCREEN_FXML_PATH, "Add new Student", 900, 600);
 		Student student = getController().getStudent();
-		
-		initialStudent.add(student);
-		students.add(student);
+
+		if (student != null)
+		{
+			initialStudent.add(student);
+			students.add(student);
+		}
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		
+
 		columnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
 		columnLastName.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
-		columnMatriculationNumber
-				.setCellValueFactory(new PropertyValueFactory<Student, Integer>("matriculationNumber"));
+		columnMatriculationNumber.setCellValueFactory(new PropertyValueFactory<Student, Integer>("matriculationNumber"));
 		columnGradePointAvrage.setCellValueFactory(new PropertyValueFactory<Student, Double>("gradePointAvrage"));
 
-		overviewTable.setItems(initialStudent);		
+		overviewTable.setItems(initialStudent);
 
 	}
 }
