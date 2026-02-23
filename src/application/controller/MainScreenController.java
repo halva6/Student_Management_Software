@@ -34,7 +34,13 @@ public class MainScreenController extends Windows<StudentScreenController> imple
 	private TableView<Student> overviewTable;
 
 	@FXML
-	private Button newStudent;
+	private Button addStudentButton;
+
+	@FXML
+	private Button editStudentButton;
+
+	@FXML
+	private Button deleteStudentButton;
 
 	private ObservableList<Student> initialStudent = FXCollections.observableArrayList();
 	private ArrayList<Student> students = new ArrayList<Student>();
@@ -52,6 +58,19 @@ public class MainScreenController extends Windows<StudentScreenController> imple
 		}
 	}
 
+	@FXML
+	void deleteStudent()
+	{
+		int selectedID = overviewTable.getSelectionModel().getSelectedIndex();
+		overviewTable.getItems().remove(selectedID);
+	}
+
+	@FXML
+	void editStudent()
+	{
+
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -63,5 +82,8 @@ public class MainScreenController extends Windows<StudentScreenController> imple
 
 		overviewTable.setItems(initialStudent);
 
+		addStudentButton.setTooltip(createStyledTooltip("adds a new student"));
+		editStudentButton.setTooltip(createStyledTooltip("edits the selected student"));
+		deleteStudentButton.setTooltip(createStyledTooltip("deletes the selected student"));
 	}
 }

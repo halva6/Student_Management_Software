@@ -74,10 +74,18 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Button fx:id="addExamButton" mnemonicParsing="false" onAction="#addExam" text="add Exam" />
+                        <Button fx:id="addExamButton" mnemonicParsing="false" onAction="#addExam" text="+ Exam" />
+                        <Button fx:id="editExamButton" mnemonicParsing="false" onAction="#editExam" text="✎ Exam" />
+                        <Button fx:id="deleteExamButton" mnemonicParsing="false" onAction="#deleteExam" text="🗑 Exam" />
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
@@ -95,8 +103,8 @@
                   <Insets right="150.0" />
                </HBox.margin>
             </Text>
-            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyParameters" text="Apply" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#exitView" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#applyParameters" text="Apply" />
+            <Button mnemonicParsing="false" onAction="#exitView" text="Cancel" />
          </children>
          <BorderPane.margin>
             <Insets bottom="20.0" right="50.0" />

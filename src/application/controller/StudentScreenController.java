@@ -40,15 +40,6 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 	private TextField eMailInput;
 
 	@FXML
-	private Button applyButton;
-
-	@FXML
-	private Button cancelButton;
-
-	@FXML
-	private Button addExamButton;
-
-	@FXML
 	private Text errorText;
 
 	@FXML
@@ -68,6 +59,15 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 
 	@FXML
 	private TableColumn<ExaminationPerformance, Integer> attemptColumn;
+
+	@FXML
+	private Button addExamButton;
+
+	@FXML
+	private Button editExamButton;
+
+	@FXML
+	private Button deleteExamButton;
 
 	private ObservableList<ExaminationPerformance> examList = FXCollections.observableArrayList();
 	private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<ExaminationPerformance>();
@@ -127,6 +127,19 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 		}
 	}
 
+	@FXML
+	void editExam(ActionEvent event)
+	{
+
+	}
+
+	@FXML
+	void deleteExam()
+	{
+		int selectedID = examTable.getSelectionModel().getSelectedIndex();
+		examTable.getItems().remove(selectedID);
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -137,5 +150,9 @@ public class StudentScreenController extends Windows<GradeScreenController> impl
 		attemptColumn.setCellValueFactory(new PropertyValueFactory<ExaminationPerformance, Integer>("attempts"));
 
 		examTable.setItems(examList);
+
+		addExamButton.setTooltip(createStyledTooltip("adds a new exam"));
+		editExamButton.setTooltip(createStyledTooltip("edits the selected exam"));
+		deleteExamButton.setTooltip(createStyledTooltip("deletes the selected exam"));
 	}
 }
