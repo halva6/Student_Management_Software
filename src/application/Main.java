@@ -1,10 +1,11 @@
 package application;
 
-import application.controller.Start;
+import application.controller.ScreenController;
 
-public class Main {
-
-	public static void main(String[] args) {
-		Start.main(args);
+public class Main
+{
+	public static void main(String[] args)
+	{
+		ScreenController.main(args);
 	}
 }

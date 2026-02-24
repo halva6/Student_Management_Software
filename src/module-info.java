@@ -7,5 +7,4 @@ module Student_Management_Software {
 	opens application to javafx.graphics, javafx.fxml;
 	opens application.controller to javafx.graphics, javafx.fxml;
 	opens application.model to javafx.base;
-
 }
