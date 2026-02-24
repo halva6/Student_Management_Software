@@ -1,0 +1,40 @@
+package application.view.studentscreen;
+
+import application.model.ExaminationPerformance;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class StudentScreenTableView extends TableView<ExaminationPerformance>
+{
+	private TableColumn<ExaminationPerformance, Integer> semesterColumn;
+	private TableColumn<ExaminationPerformance, String> examColumn;
+	private TableColumn<ExaminationPerformance, Double> gradeColumn;
+	private TableColumn<ExaminationPerformance, Boolean> passedColumn;
+	private TableColumn<ExaminationPerformance, Integer> attemptColumn;
+	
+	public StudentScreenTableView()
+	{
+		semesterColumn = new TableColumn<>("Semester");
+		semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semesterNumber"));
+		getColumns().add(semesterColumn);
+
+		examColumn = new TableColumn<>("Exam");
+		examColumn.setCellValueFactory(new PropertyValueFactory<>("examName"));
+		getColumns().add(examColumn);
+
+		gradeColumn = new TableColumn<>("Grade");
+		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+		getColumns().add(gradeColumn);
+
+		passedColumn = new TableColumn<>("Passed");
+		passedColumn.setCellValueFactory(new PropertyValueFactory<>("passed"));
+		getColumns().add(passedColumn);
+		
+		attemptColumn = new TableColumn<>("Attempts");
+		attemptColumn.setCellValueFactory(new PropertyValueFactory<>("attemps"));
+		getColumns().add(attemptColumn);
+		
+		setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+	}
+}

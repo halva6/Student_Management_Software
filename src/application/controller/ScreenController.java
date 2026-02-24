@@ -1,8 +1,11 @@
 package application.controller;
 
-import application.view.mainscreen.MainScreenHBoxView;
+import application.view.TableButtonHBox;
+import application.view.WindowButtonHBox;
+import application.view.examscreen.ExamScreenVBox;
 import application.view.mainscreen.MainScreenTableView;
-import application.view.startscreen.StartScreenView;
+import application.view.startscreen.StartScreen;
+import application.view.studentscreen.StudentScreenGridPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -20,9 +23,10 @@ public class ScreenController extends Application
 			root = new BorderPane();
 			Scene scene = new Scene(root, 900, 600);
 
-			root.setCenter(setStartScreenView());
+			root.setCenter(setStartScreen());
 
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Student Management Software");
 			primaryStage.show();
 		} catch (Exception exception)
 		{
@@ -30,25 +34,38 @@ public class ScreenController extends Application
 		}
 	}
 
-	private StartScreenView setStartScreenView()
+	// start screen
+	private StartScreen setStartScreen()
 	{
-		StartScreenView startScreenView = new StartScreenView();
-		startScreenView.setOnAction(e ->
+		StartScreen startScreen = new StartScreen();
+		startScreen.setOnAction(e ->
 		{
-			root.setBottom(setMainScreenHBoView());
+			root.setBottom(setMainScreenHBox());
 			root.setCenter(setMainScreenTableView());
 		});
-		return startScreenView;
+		return startScreen;
 	}
 
-	private MainScreenHBoxView setMainScreenHBoView()
+	// main screen
+	private TableButtonHBox setMainScreenHBox()
 	{
-		MainScreenHBoxView mainScreenHBoxView = new MainScreenHBoxView();
-		mainScreenHBoxView.getAddStudent().setOnAction(e -> System.out.println("add Student"));
-		mainScreenHBoxView.getEditStudent().setOnAction(e -> System.out.println("edit Student"));
-		mainScreenHBoxView.getDeleteStudent().setOnAction(e -> System.out.println("delete Student"));
+		TableButtonHBox mainScreenHBox = new TableButtonHBox("Student");
+		mainScreenHBox.getAdd().setOnAction(e ->
+		{
+			root.setCenter(setStudentScreenGridPane());
+			root.setBottom(setStudentWindowButtonHBox());
+		});
 
-		return mainScreenHBoxView;
+		mainScreenHBox.getEdit().setOnAction(e ->
+		{
+			System.out.println("edit Student");
+			root.setCenter(setStudentScreenGridPane());
+			root.setBottom(setStudentWindowButtonHBox());
+		});
+
+		mainScreenHBox.getDelete().setOnAction(e -> System.out.println("delete Student"));
+
+		return mainScreenHBox;
 	}
 
 	private MainScreenTableView setMainScreenTableView()
@@ -56,6 +73,42 @@ public class ScreenController extends Application
 		MainScreenTableView mainScreenTableView = new MainScreenTableView();
 
 		return mainScreenTableView;
+	}
+
+	// student screen
+	private StudentScreenGridPane setStudentScreenGridPane()
+	{
+		StudentScreenGridPane studentScreenGridPane = new StudentScreenGridPane();
+
+		studentScreenGridPane.getButtonHBox().getAdd().setOnAction(e ->
+		{
+			root.setCenter(setExamScreenVBox());
+			root.setBottom(setExamWindowButtonHBox());
+		});
+
+		return studentScreenGridPane;
+	}
+
+	private WindowButtonHBox setStudentWindowButtonHBox()
+	{
+		WindowButtonHBox windowButtonHBox = new WindowButtonHBox();
+
+		return windowButtonHBox;
+	}
+
+	// exam screen
+	
+	private ExamScreenVBox setExamScreenVBox() 
+	{
+		ExamScreenVBox examScreenVBox = new ExamScreenVBox();
+		return examScreenVBox;
+	}
+	
+	private WindowButtonHBox setExamWindowButtonHBox()
+	{
+		WindowButtonHBox windowButtonHBox = new WindowButtonHBox();
+
+		return windowButtonHBox;
 	}
 
 	public static void main(String[] args)
