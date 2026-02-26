@@ -27,6 +27,9 @@ public class MainScreenController extends Controller implements Startable
 		mainScreenHBox = new TableButtonHBox("Student");
 		
 		mainScreenTableView.setItems(observableStudents);
+		
+		mainScreenHBox.getDelete().setOnAction(e -> deleteStudent());
+
 	}
 
 	@Override
@@ -38,13 +41,10 @@ public class MainScreenController extends Controller implements Startable
 	@Override
 	public Node getBottonElement()
 	{
-
 		mainScreenHBox.getEdit().setOnAction(e ->
 		{
 			System.out.println("Edit Student");
 		});
-
-		mainScreenHBox.getDelete().setOnAction(e -> System.out.println("delete Student"));
 
 		return mainScreenHBox;
 	}
@@ -60,5 +60,11 @@ public class MainScreenController extends Controller implements Startable
 		observableStudents.add(student);
 		students.add(student);
 	}
-
+	
+	private void deleteStudent() 
+	{
+		int selectedID = mainScreenTableView.getSelectionModel().getSelectedIndex();
+		observableStudents.remove(selectedID);
+		students.remove(selectedID);
+	}
 }

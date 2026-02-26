@@ -71,12 +71,11 @@ public class ScreenController extends Application
 	private void goToNewView()
 	{
 		index++;
-		Controller controller = controllerHierarchy.get(index);
-		if (controller instanceof StudentScreenController)
+		if (index == 2)
 		{
 			controllerHierarchy.set(index, new StudentScreenController());
 			setActionEvents();
-		} else if (controller instanceof ExamScreenController)
+		} else if (index == 3)
 		{
 			controllerHierarchy.set(index, new ExamScreenController());
 			setActionEvents();

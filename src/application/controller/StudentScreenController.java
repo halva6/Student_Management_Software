@@ -31,6 +31,7 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		windowButtonHBox = new WindowButtonHBox();
 		
 		studentScreenGridPane.getScreenTableView().setItems(observableExaminationPerformances);
+		studentScreenGridPane.getButtonHBox().getDelete().setOnAction(e -> deleteExam());
 	}
 
 	@Override
@@ -103,5 +104,12 @@ public class StudentScreenController extends Controller implements Startable, Ex
 	{
 		observableExaminationPerformances.add(examinationPerformance);
 		examinationPerformances.add(examinationPerformance);
+	}
+	
+	private void deleteExam() 
+	{
+		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
+		observableExaminationPerformances.remove(selectedID);
+		examinationPerformances.remove(selectedID);
 	}
 }
