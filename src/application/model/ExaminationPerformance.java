@@ -5,26 +5,26 @@ import java.util.Arrays;
 public class ExaminationPerformance
 {
 	private String examName;
-	private String examDiscription;
+	private String examDescription;
 	private String examType;
-	private int semesterNumber;
+	private int semester;
 	private double grade;
 	private boolean passed = true;
 	private int attempts;
 
-	private double[] attemptResults = new double[3];
-	private String[] attemptDates = new String[3];
+	private double[] results = new double[3];
+	private String[] dates = new String[3];
 
 	public ExaminationPerformance(String examName, String examDiscription, String examType, int semesterNumber, int attempts, double[] attemptResults, String[] attemptDates)
 	{
 		this.examName = examName;
-		this.examDiscription = examDiscription;
+		this.examDescription = examDiscription;
 		this.examType = examType;
-		this.semesterNumber = semesterNumber;
+		this.semester = semesterNumber;
 		this.attempts = attempts;
 
-		this.attemptResults = attemptResults;
-		this.attemptDates = attemptDates;
+		this.results = attemptResults;
+		this.dates = attemptDates;
 
 		double grade = attemptResults[0];
 
@@ -46,9 +46,9 @@ public class ExaminationPerformance
 		return examName;
 	}
 
-	public String getExamDiscription()
+	public String getExamDescription()
 	{
-		return examDiscription;
+		return examDescription;
 	}
 
 	public String getExamType()
@@ -56,9 +56,9 @@ public class ExaminationPerformance
 		return examType;
 	}
 
-	public int getSemesterNumber()
+	public int getSemester()
 	{
-		return semesterNumber;
+		return semester;
 	}
 
 	public double getGrade()
@@ -71,14 +71,14 @@ public class ExaminationPerformance
 		return passed;
 	}
 
-	public double[] getAttemptResults()
+	public double[] getResults()
 	{
-		return attemptResults;
+		return results;
 	}
 
-	public String[] getAttemptDates()
+	public String[] getDates()
 	{
-		return attemptDates;
+		return dates;
 	}
 
 	public int getAttempts()
@@ -89,8 +89,8 @@ public class ExaminationPerformance
 	@Override
 	public String toString()
 	{
-		return "ExaminationPerformance [examName=" + examName + ", examDiscription=" + examDiscription + ", examType=" + examType + ", semesterNumber=" + semesterNumber + ", grade=" + grade
-				+ ", passed=" + passed + ", attempts=" + attempts + ", attemptResults=" + Arrays.toString(attemptResults) + ", attemptDates=" + Arrays.toString(attemptDates) + "]";
+		return "ExaminationPerformance [examName=" + examName + ", examDiscription=" + examDescription + ", examType=" + examType + ", semesterNumber=" + semester + ", grade=" + grade + ", passed="
+				+ passed + ", attempts=" + attempts + ", attemptResults=" + Arrays.toString(results) + ", attemptDates=" + Arrays.toString(dates) + "]";
 	}
 
 }

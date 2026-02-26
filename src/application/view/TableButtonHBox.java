@@ -16,7 +16,7 @@ public class TableButtonHBox extends HBox
 		add = new Button("+ " + text);
 		edit = new Button("✎ " + text);
 		delete = new Button("🗑 " + text);
-		
+
 		getChildren().addAll(add, edit, delete);
 		setSpacing(40);
 		setPadding(new Insets(20, 0, 20, 0));

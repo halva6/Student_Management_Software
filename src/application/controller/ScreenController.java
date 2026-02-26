@@ -3,8 +3,11 @@ package application.controller;
 import java.util.ArrayList;
 
 import application.controller.interfaces.Applicable;
+import application.controller.interfaces.Editable;
 import application.controller.interfaces.Exitable;
 import application.controller.interfaces.Startable;
+import application.model.ExaminationPerformance;
+import application.model.Student;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -65,6 +68,10 @@ public class ScreenController extends Application
 			{
 				((Applicable<?>) controller).applyScreenEvent(e -> applyAndGotoOldView(controller));
 			}
+			if (controller instanceof Editable<?>)
+			{
+				((Editable<?>) controller).editScreenEvent(e -> editAndGotoNewView(controller));
+			}
 		}
 	}
 
@@ -95,14 +102,52 @@ public class ScreenController extends Application
 
 		if (index == 2)
 		{
-			((MainScreenController) controllerHierarchy.get(1)).addStudent(((StudentScreenController) controller).getModel());
+			StudentScreenController studentScreenController = (StudentScreenController) controller;
+
+			if (studentScreenController.wasEdit())
+			{
+				((MainScreenController) controllerHierarchy.get(1)).replaceStudent(studentScreenController.getModel());
+			} else
+			{
+				((MainScreenController) controllerHierarchy.get(1)).addStudent(studentScreenController.getModel());
+			}
 		}
-		if(index == 3) 
+		if (index == 3)
 		{
-			((StudentScreenController) controllerHierarchy.get(2)).addExam(((ExamScreenController) controller).getModel());
+			ExamScreenController examScreenController = (ExamScreenController) controller;
+
+			if (examScreenController.wasEdit())
+			{
+				((StudentScreenController) controllerHierarchy.get(2)).replaceExam(examScreenController.getModel());
+
+			} else
+			{
+				((StudentScreenController) controllerHierarchy.get(2)).addExam(examScreenController.getModel());
+			}
 		}
 
 		goToOldView();
+	}
+
+	private void editAndGotoNewView(Controller controller)
+	{
+		index++;
+		if (index == 2)
+		{
+			Student student = ((MainScreenController) controller).getSelectedEntry();
+			System.out.println(student.toString());
+			controllerHierarchy.set(index, new StudentScreenController(student));
+
+			setActionEvents();
+		} else if (index == 3)
+		{
+			ExaminationPerformance examinationPerformance = ((StudentScreenController) controller).getSelectedEntry();
+			System.out.println(examinationPerformance.toString());
+			controllerHierarchy.set(index, new ExamScreenController(examinationPerformance));
+
+			setActionEvents();
+		}
+		setNewView(controllerHierarchy.get(index));
 	}
 
 	public static void main(String[] args)

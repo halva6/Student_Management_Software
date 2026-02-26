@@ -3,6 +3,7 @@ package application.controller;
 import java.util.ArrayList;
 
 import application.controller.interfaces.Applicable;
+import application.controller.interfaces.Editable;
 import application.controller.interfaces.Exitable;
 import application.controller.interfaces.Startable;
 import application.model.ExaminationPerformance;
@@ -15,7 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 
-public class StudentScreenController extends Controller implements Startable, Exitable, Applicable<Student>
+public class StudentScreenController extends Controller implements Startable, Exitable, Applicable<Student>, Editable<ExaminationPerformance>
 {
 	private StudentScreenGridPane studentScreenGridPane;
 	private WindowButtonHBox windowButtonHBox;
@@ -25,11 +26,31 @@ public class StudentScreenController extends Controller implements Startable, Ex
 	private ObservableList<ExaminationPerformance> observableExaminationPerformances = FXCollections.observableArrayList();
 	private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<>();
 
+	private boolean edit;
+
 	public StudentScreenController()
 	{
+		edit = false;
 		studentScreenGridPane = new StudentScreenGridPane();
 		windowButtonHBox = new WindowButtonHBox();
-		
+
+		studentScreenGridPane.getScreenTableView().setItems(observableExaminationPerformances);
+		studentScreenGridPane.getButtonHBox().getDelete().setOnAction(e -> deleteExam());
+	}
+
+	public StudentScreenController(Student student)
+	{
+		edit = true;
+		studentScreenGridPane = new StudentScreenGridPane(student.getFirstName(), student.getLastName(), String.valueOf(student.getMatriculationNumber()), student.getStudyProgram(),
+				student.getEMail());
+		windowButtonHBox = new WindowButtonHBox();
+
+		for (ExaminationPerformance examinationPerformance : student.getExaminationPerformances())
+		{
+			observableExaminationPerformances.add(examinationPerformance);
+			examinationPerformances.add(examinationPerformance);
+		}
+
 		studentScreenGridPane.getScreenTableView().setItems(observableExaminationPerformances);
 		studentScreenGridPane.getButtonHBox().getDelete().setOnAction(e -> deleteExam());
 	}
@@ -69,21 +90,23 @@ public class StudentScreenController extends Controller implements Startable, Ex
 	@Override
 	public void createModel()
 	{
-		String firstName = studentScreenGridPane.getFirstNameInput().getText();
-		String lastName = studentScreenGridPane.getLastNameInput().getText();
+		String firstName = studentScreenGridPane.getFirstName().getText();
+		String lastName = studentScreenGridPane.getLastName().getText();
 		int matriculationNumber = -1;
 
 		try
 		{
-			matriculationNumber = Integer.valueOf(studentScreenGridPane.getMatriculationNumberInput().getText());
+			matriculationNumber = Integer.valueOf(studentScreenGridPane.getMatriculationNumber().getText());
 		} catch (NumberFormatException exception)
 		{
 			exception.printStackTrace();
 			System.out.println("Matriculation number is in the wrong format!");
 		}
 
-		String studyProgram = studentScreenGridPane.getStudyProgramInput().getText();
-		String eMail = studentScreenGridPane.geteMailInput().getText();
+		String studyProgram = studentScreenGridPane.getStudyProgram().getText();
+		String eMail = studentScreenGridPane.getEMail().getText();
+
+		System.out.println(eMail);
 
 		if (firstName.isBlank() || lastName.isBlank() || studyProgram.isBlank() || eMail.isBlank())
 		{
@@ -99,17 +122,46 @@ public class StudentScreenController extends Controller implements Startable, Ex
 	{
 		return student;
 	}
-	
-	public void addExam(ExaminationPerformance examinationPerformance) 
+
+	public void addExam(ExaminationPerformance examinationPerformance)
 	{
 		observableExaminationPerformances.add(examinationPerformance);
 		examinationPerformances.add(examinationPerformance);
 	}
-	
-	private void deleteExam() 
+
+	public void replaceExam(ExaminationPerformance examinationPerformance)
 	{
 		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
-		observableExaminationPerformances.remove(selectedID);
-		examinationPerformances.remove(selectedID);
+		observableExaminationPerformances.set(selectedID, examinationPerformance);
+		examinationPerformances.set(selectedID, examinationPerformance);
+
+	}
+
+	private void deleteExam()
+	{
+		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
+		if (selectedID >= 0)
+		{
+			observableExaminationPerformances.remove(selectedID);
+			examinationPerformances.remove(selectedID);
+		}
+	}
+
+	@Override
+	public void editScreenEvent(EventHandler<ActionEvent> action)
+	{
+		studentScreenGridPane.getButtonHBox().getEdit().setOnAction(action);
+	}
+
+	@Override
+	public ExaminationPerformance getSelectedEntry()
+	{
+		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
+		return (selectedID >= 0) ? examinationPerformances.get(selectedID) : null;
+	}
+
+	public boolean wasEdit()
+	{
+		return edit;
 	}
 }

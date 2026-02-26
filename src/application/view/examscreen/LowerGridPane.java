@@ -1,5 +1,8 @@
 package application.view.examscreen;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -17,7 +20,7 @@ public class LowerGridPane extends GridPane
 	private DatePicker firstDate;
 	private DatePicker secondDate;
 	private DatePicker thirdDate;
-	
+
 	private TextField[] results = new TextField[3];
 	private DatePicker[] dates = new DatePicker[3];
 
@@ -37,6 +40,39 @@ public class LowerGridPane extends GridPane
 		secondDate = new DatePicker();
 		thirdDate = new DatePicker();
 
+		createGrid();
+	}
+
+	public LowerGridPane(double[] results, String[] dates, int attempts)
+	{
+		// initialize nodes
+		firstResult = new TextField();
+		firstResult.setPromptText("1. Result");
+
+		secondResult = new TextField();
+		secondResult.setPromptText("2. Result");
+
+		thirdResult = new TextField();
+		thirdResult.setPromptText("3. Result");
+
+		firstDate = new DatePicker();
+		secondDate = new DatePicker();
+		thirdDate = new DatePicker();
+
+		createGrid();
+
+		for (int i = 0; i < attempts; i++)
+		{
+			this.results[i].setText(String.valueOf(results[i]));
+
+			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate dateTime = LocalDate.parse(dates[i], dateTimeFormatter);
+			this.dates[i].setValue(dateTime);
+		}
+	}
+
+	private void createGrid()
+	{
 		// add nodes to the grid
 		add(new Text("1. Attempt"), 0, 1);
 		add(new Text("2. Attempt"), 0, 2);
@@ -74,11 +110,11 @@ public class LowerGridPane extends GridPane
 
 		GridPane.setHgrow(this, Priority.ALWAYS);
 		GridPane.setVgrow(this, Priority.ALWAYS);
-		
+
 		results[0] = firstResult;
 		results[1] = secondResult;
 		results[2] = thirdResult;
-		
+
 		dates[0] = firstDate;
 		dates[1] = secondDate;
 		dates[2] = thirdDate;

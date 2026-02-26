@@ -16,7 +16,7 @@ public class StudentScreenTableView extends TableView<ExaminationPerformance>
 	public StudentScreenTableView()
 	{
 		semesterColumn = new TableColumn<>("Semester");
-		semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semesterNumber"));
+		semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semester"));
 		getColumns().add(semesterColumn);
 
 		examColumn = new TableColumn<>("Exam");

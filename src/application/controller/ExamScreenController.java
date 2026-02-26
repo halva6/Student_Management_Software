@@ -15,10 +15,27 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 	private WindowButtonHBox windowButtonHBox;
 
 	private ExaminationPerformance examinationPerformance;
+	private boolean edit;
 
 	public ExamScreenController()
 	{
+		edit = false;
 		examScreenVBox = new ExamScreenVBox();
+		windowButtonHBox = new WindowButtonHBox();
+	}
+
+	public ExamScreenController(ExaminationPerformance examinationPerformance)
+	{
+		edit = true;
+		String examName = examinationPerformance.getExamName();
+		String examDescription = examinationPerformance.getExamDescription();
+		String examType = examinationPerformance.getExamType();
+		int semester = examinationPerformance.getSemester();
+		double[] results = examinationPerformance.getResults();
+		String[] dates = examinationPerformance.getDates();
+		int attempts = examinationPerformance.getAttempts();
+
+		examScreenVBox = new ExamScreenVBox(examName, examDescription, examType, semester, results, dates, attempts);
 		windowButtonHBox = new WindowButtonHBox();
 	}
 
@@ -93,5 +110,10 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 	public ExaminationPerformance getModel()
 	{
 		return examinationPerformance;
+	}
+
+	public boolean wasEdit()
+	{
+		return edit;
 	}
 }

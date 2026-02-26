@@ -14,11 +14,11 @@ import javafx.scene.text.Text;
 public class StudentScreenGridPane extends GridPane
 {
 
-	private TextField firstNameInput;
-	private TextField lastNameInput;
-	private TextField matriculationNumberInput;
-	private TextField studyProgramInput;
-	private TextField eMailInput;
+	private TextField firstName;
+	private TextField lastName;
+	private TextField matriculationNumber;
+	private TextField studyProgram;
+	private TextField eMail;
 
 	private VBox examVBox;
 	private TableButtonHBox buttonHBox;
@@ -27,20 +27,20 @@ public class StudentScreenGridPane extends GridPane
 	public StudentScreenGridPane()
 	{
 		// text fields
-		firstNameInput = new TextField();
-		firstNameInput.setPromptText("First Name");
+		firstName = new TextField();
+		firstName.setPromptText("First Name");
 
-		lastNameInput = new TextField();
-		lastNameInput.setPromptText("Last Name");
+		lastName = new TextField();
+		lastName.setPromptText("Last Name");
 
-		matriculationNumberInput = new TextField();
-		matriculationNumberInput.setPromptText("Matriculation Number");
+		matriculationNumber = new TextField();
+		matriculationNumber.setPromptText("Matriculation Number");
 
-		studyProgramInput = new TextField();
-		studyProgramInput.setPromptText("Study Program");
+		studyProgram = new TextField();
+		studyProgram.setPromptText("Study Program");
 
-		eMailInput = new TextField();
-		eMailInput.setPromptText("E-Mail");
+		eMail = new TextField();
+		eMail.setPromptText("E-Mail");
 
 		// add, edit, delete buttons
 		buttonHBox = new TableButtonHBox("Exam");
@@ -48,7 +48,44 @@ public class StudentScreenGridPane extends GridPane
 		// TableView
 		screenTableView = new StudentScreenTableView();
 
-		// VBox
+		createExamVBox();
+
+		createGrid();
+
+	}
+
+	public StudentScreenGridPane(String firstName, String lastName, String matriculationNumber, String studyProgram, String eMail)
+	{
+		// text fields
+		this.firstName = new TextField(firstName);
+		this.firstName.setPromptText("First Name");
+
+		this.lastName = new TextField(lastName);
+		this.lastName.setPromptText("Last Name");
+
+		this.matriculationNumber = new TextField(matriculationNumber);
+		this.matriculationNumber.setPromptText("Matriculation Number");
+
+		this.studyProgram = new TextField(studyProgram);
+		this.studyProgram.setPromptText("Study Program");
+
+		this.eMail = new TextField(eMail);
+		this.eMail.setPromptText("E-Mail");
+
+		// add, edit, delete buttons
+		buttonHBox = new TableButtonHBox("Exam");
+
+		// TableView
+		screenTableView = new StudentScreenTableView();
+
+		createExamVBox();
+
+		createGrid();
+
+	}
+
+	private void createExamVBox()
+	{
 		examVBox = new VBox();
 		examVBox.setAlignment(Pos.CENTER);
 		examVBox.setSpacing(5);
@@ -57,22 +94,25 @@ public class StudentScreenGridPane extends GridPane
 		examVBox.setPrefHeight(200);
 		examVBox.getChildren().add(screenTableView);
 		examVBox.getChildren().add(buttonHBox);
+	}
 
+	private void createGrid()
+	{
 		// add all to the GridPane
 		add(new Text("First Name"), 0, 0);
-		add(firstNameInput, 1, 0);
+		add(firstName, 1, 0);
 
 		add(new Text("Last Name"), 0, 1);
-		add(lastNameInput, 1, 1);
+		add(lastName, 1, 1);
 
 		add(new Text("Matriculation Number"), 0, 2);
-		add(matriculationNumberInput, 1, 2);
+		add(matriculationNumber, 1, 2);
 
 		add(new Text("Study Program"), 0, 3);
-		add(studyProgramInput, 1, 3);
+		add(studyProgram, 1, 3);
 
 		add(new Text("E-Mail"), 0, 4);
-		add(eMailInput, 1, 4);
+		add(eMail, 1, 4);
 
 		add(new Separator(), 0, 5);
 		add(new Separator(), 1, 5);
@@ -81,49 +121,48 @@ public class StudentScreenGridPane extends GridPane
 		add(examVBox, 1, 6);
 
 		// constrains
-        ColumnConstraints leftConstraint = new ColumnConstraints();
-        leftConstraint.setPercentWidth(30);
-        getColumnConstraints().add(leftConstraint);
-		
-        ColumnConstraints rightConstraint = new ColumnConstraints();
-        rightConstraint.setPercentWidth(70);
-        getColumnConstraints().add(rightConstraint);
-     		
+		ColumnConstraints leftConstraint = new ColumnConstraints();
+		leftConstraint.setPercentWidth(30);
+		getColumnConstraints().add(leftConstraint);
+
+		ColumnConstraints rightConstraint = new ColumnConstraints();
+		rightConstraint.setPercentWidth(70);
+		getColumnConstraints().add(rightConstraint);
+
 		// properties
 		setVgap(20);
 		setPadding(new Insets(20, 20, 0, 20));
 		setAlignment(Pos.CENTER);
 		setWidth(USE_COMPUTED_SIZE);
 		setHeight(USE_COMPUTED_SIZE);
-		
-		GridPane.setHgrow(this,Priority.ALWAYS);
+
+		GridPane.setHgrow(this, Priority.ALWAYS);
 		GridPane.setVgrow(this, Priority.ALWAYS);
-
 	}
 
-	public TextField getFirstNameInput()
+	public TextField getFirstName()
 	{
-		return firstNameInput;
+		return firstName;
 	}
 
-	public TextField getLastNameInput()
+	public TextField getLastName()
 	{
-		return lastNameInput;
+		return lastName;
 	}
 
-	public TextField getMatriculationNumberInput()
+	public TextField getMatriculationNumber()
 	{
-		return matriculationNumberInput;
+		return matriculationNumber;
 	}
 
-	public TextField getStudyProgramInput()
+	public TextField getStudyProgram()
 	{
-		return studyProgramInput;
+		return studyProgram;
 	}
 
-	public TextField geteMailInput()
+	public TextField getEMail()
 	{
-		return eMailInput;
+		return eMail;
 	}
 
 	public TableButtonHBox getButtonHBox()

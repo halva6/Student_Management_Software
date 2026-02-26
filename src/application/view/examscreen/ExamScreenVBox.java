@@ -9,13 +9,26 @@ public class ExamScreenVBox extends VBox
 {
 	private UpperGridPane upperGridPane;
 	private LowerGridPane lowerGridPane;
-	
-	public ExamScreenVBox() 
+
+	public ExamScreenVBox()
 	{
 		upperGridPane = new UpperGridPane();
 		lowerGridPane = new LowerGridPane();
-		
-		getChildren().addAll(upperGridPane, new Separator() ,lowerGridPane);
+
+		createVBox();
+	}
+
+	public ExamScreenVBox(String examName, String examDescription, String examType, int semester, double[] results, String[] dates, int attempts)
+	{
+		upperGridPane = new UpperGridPane(examName, examDescription, examType, semester);
+		lowerGridPane = new LowerGridPane(results, dates, attempts);
+		createVBox();
+
+	}
+
+	private void createVBox()
+	{
+		getChildren().addAll(upperGridPane, new Separator(), lowerGridPane);
 		setAlignment(Pos.CENTER);
 		setPadding(new Insets(0, 20, 0, 20));
 		setSpacing(5);
