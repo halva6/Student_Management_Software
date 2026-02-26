@@ -10,7 +10,7 @@ public class ExaminationPerformance
 	private int semesterNumber;
 	private double grade;
 	private boolean passed = true;
-	private int attemps;
+	private int attempts;
 
 	private double[] attemptResults = new double[3];
 	private String[] attemptDates = new String[3];
@@ -21,7 +21,7 @@ public class ExaminationPerformance
 		this.examDiscription = examDiscription;
 		this.examType = examType;
 		this.semesterNumber = semesterNumber;
-		this.attemps = attempts;
+		this.attempts = attempts;
 
 		this.attemptResults = attemptResults;
 		this.attemptDates = attemptDates;
@@ -83,14 +83,14 @@ public class ExaminationPerformance
 
 	public int getAttempts()
 	{
-		return attemps;
+		return attempts;
 	}
 
 	@Override
 	public String toString()
 	{
 		return "ExaminationPerformance [examName=" + examName + ", examDiscription=" + examDiscription + ", examType=" + examType + ", semesterNumber=" + semesterNumber + ", grade=" + grade
-				+ ", passed=" + passed + ", attemps=" + attemps + ", attemptResults=" + Arrays.toString(attemptResults) + ", attemptDates=" + Arrays.toString(attemptDates) + "]";
+				+ ", passed=" + passed + ", attempts=" + attempts + ", attemptResults=" + Arrays.toString(attemptResults) + ", attemptDates=" + Arrays.toString(attemptDates) + "]";
 	}
 
 }

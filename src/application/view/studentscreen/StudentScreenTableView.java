@@ -32,7 +32,7 @@ public class StudentScreenTableView extends TableView<ExaminationPerformance>
 		getColumns().add(passedColumn);
 		
 		attemptColumn = new TableColumn<>("Attempts");
-		attemptColumn.setCellValueFactory(new PropertyValueFactory<>("attemps"));
+		attemptColumn.setCellValueFactory(new PropertyValueFactory<>("attempts"));
 		getColumns().add(attemptColumn);
 		
 		setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
