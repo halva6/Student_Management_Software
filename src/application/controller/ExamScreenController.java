@@ -2,24 +2,36 @@ package application.controller;
 
 import application.view.WindowButtonHBox;
 import application.view.examscreen.ExamScreenVBox;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 
-public class ExamScreenController extends Controller
+public class ExamScreenController extends Controller implements ExitScreen
 {
+	private ExamScreenVBox examScreenVBox;
+	private WindowButtonHBox windowButtonHBox;
+
+	public ExamScreenController()
+	{
+		examScreenVBox = new ExamScreenVBox();
+		windowButtonHBox = new WindowButtonHBox();
+	}
 
 	@Override
 	public Node getCenterElement()
 	{
-		ExamScreenVBox examScreenVBox = new ExamScreenVBox();
 		return examScreenVBox;
 	}
 
 	@Override
 	public Node getBottonElement()
 	{
-		WindowButtonHBox windowButtonHBox = new WindowButtonHBox();
-
 		return windowButtonHBox;
 	}
 
+	@Override
+	public void cancelScreenEvent(EventHandler<ActionEvent> action)
+	{
+		windowButtonHBox.getCancel().setOnAction(action);
+	}
 }

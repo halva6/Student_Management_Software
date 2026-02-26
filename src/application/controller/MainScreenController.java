@@ -2,27 +2,31 @@ package application.controller;
 
 import application.view.TableButtonHBox;
 import application.view.mainscreen.MainScreenTableView;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 
-public class MainScreenController extends Controller
+public class MainScreenController extends Controller implements StartNewScreen
 {
+
+	private TableButtonHBox mainScreenHBox;
+	private MainScreenTableView mainScreenTableView;
+
+	public MainScreenController()
+	{
+		mainScreenTableView = new MainScreenTableView();
+		mainScreenHBox = new TableButtonHBox("Student");
+	}
 
 	@Override
 	public Node getCenterElement()
 	{
-		MainScreenTableView mainScreenTableView = new MainScreenTableView();
-
 		return mainScreenTableView;
 	}
 
 	@Override
 	public Node getBottonElement()
 	{
-		TableButtonHBox mainScreenHBox = new TableButtonHBox("Student");
-		mainScreenHBox.getAdd().setOnAction(e ->
-		{
-			System.out.println("Add Student");
-		});
 
 		mainScreenHBox.getEdit().setOnAction(e ->
 		{
@@ -32,6 +36,12 @@ public class MainScreenController extends Controller
 		mainScreenHBox.getDelete().setOnAction(e -> System.out.println("delete Student"));
 
 		return mainScreenHBox;
+	}
+
+	@Override
+	public void addNewScreenEvent(EventHandler<ActionEvent> action)
+	{
+		mainScreenHBox.getAdd().setOnAction(action);
 	}
 
 }
