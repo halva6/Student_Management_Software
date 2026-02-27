@@ -1,0 +1,267 @@
+package application.view;
+TableButtonHBox
+- add: Button
+- edit: Button
+- delete: Button
++ TableButtonHBox(text: String): 
+- createTooltip(tooltipText: String): Tooltip
++ getAdd(): Button
++ getEdit(): Button
++ getDelete(): Button
+
+
+package application.view.mainscreen;
+MainScreenTableView
+- firstNameColumn: TableColumn<Student,String>
+- lastNameColumn: TableColumn<Student,String>
+- matriculationNumberColumn: TableColumn<Student,Integer>
+- gradePointAvrageColumn: TableColumn<Student,Double>
++ MainScreenTableView(): 
+
+
+package application.view.studentscreen;
+StudentScreenGridPane
+- firstName: TextField
+- lastName: TextField
+- matriculationNumber: TextField
+- studyProgram: TextField
+- eMail: TextField
+- examVBox: VBox
+- buttonHBox: TableButtonHBox
+- screenTableView: StudentScreenTableView
++ StudentScreenGridPane(): 
++ StudentScreenGridPane(firstName: String, lastName: String, matriculationNumber: String, studyProgram: String, eMail: String): 
+- createExamVBox(): void
+- createGrid(): void
++ getFirstName(): TextField
++ getLastName(): TextField
++ getMatriculationNumber(): TextField
++ getStudyProgram(): TextField
++ getEMail(): TextField
++ getButtonHBox(): TableButtonHBox
++ getScreenTableView(): StudentScreenTableView
+
+
+package application.view.studentscreen;
+StudentScreenTableView
+- semesterColumn: TableColumn<ExaminationPerformance,Integer>
+- examColumn: TableColumn<ExaminationPerformance,String>
+- gradeColumn: TableColumn<ExaminationPerformance,Double>
+- passedColumn: TableColumn<ExaminationPerformance,Boolean>
+- attemptColumn: TableColumn<ExaminationPerformance,Integer>
++ StudentScreenTableView(): 
+
+
+package application.view.examscreen;
+ExamScreenVBox
+- upperGridPane: UpperGridPane
+- lowerGridPane: LowerGridPane
++ ExamScreenVBox(): 
++ ExamScreenVBox(examName: String, examDescription: String, examType: String, semester: int, results: double[], dates: String[], attempts: int): 
+- createVBox(): void
++ getUpperGridPane(): UpperGridPane
++ getLowerGridPane(): LowerGridPane
+
+
+package application.view.examscreen;
+LowerGridPane
+- firstResult: TextField
+- secondResult: TextField
+- thirdResult: TextField
+- firstDate: DatePicker
+- secondDate: DatePicker
+- thirdDate: DatePicker
++ LowerGridPane(): 
++ LowerGridPane(results: double[], dates: String[], attempts: int): 
+- createGrid(): void
++ getResults(): TextField[]
++ getDates(): DatePicker[]
+
+
+package application.view.examscreen;
+UpperGridPane
+- examName: TextField
+- examDescription: TextField
+- examType: ChoiceBox<String>
+- semester: Spinner<Integer>
++ UpperGridPane(): 
++ UpperGridPane(examName: String, examDescription: String, examType: String, semester: int): 
+- createGrid(): void
++ getExamName(): TextField
++ getExamDescription(): TextField
++ getExamType(): ChoiceBox<String>
++ getSemester(): Spinner<Integer>
+
+
+package application.view;
+WindowButtonHBox
+- apply: Button
+- cancel: Button
+- errorText: Text
++ WindowButtonHBox(): 
+- createTooltip(tooltipText: String): Tooltip
++ getApply(): Button
++ getCancel(): Button
++ getErrorText(): Text
+
+
+package application.view.startscreen;
+StartScreen
++ StartScreen(): 
+
+
+package application;
+Main
++ main(args: String[]): void {static}
+
+
+package application.model;
+ExaminationPerformance
+- examName: String
+- examDescription: String
+- examType: String
+- semester: int
+- grade: double
+- attempts: int
++ ExaminationPerformance(examName: String, examDiscription: String, examType: String, semesterNumber: int, attempts: int, attemptResults: double[], attemptDates: String[]): 
++ getExamName(): String
++ getExamDescription(): String
++ getExamType(): String
++ getSemester(): int
++ getGrade(): double
++ isPassed(): boolean
++ getResults(): double[]
++ getDates(): String[]
++ getAttempts(): int
++ toString(): String
+
+
+package application.model;
+Student
+- firstName: String
+- lastName: String
+- matriculationNumber: int
+- studyProgram: String
+- eMail: String
+- examinationPerformances: ArrayList<ExaminationPerformance>
++ getFirstName(): String
++ getLastName(): String
++ getMatriculationNumber(): int
++ getStudyProgram(): String
++ getEMail(): String
++ getGradePointAvrage(): double
++ getExaminationPerformances(): ArrayList<ExaminationPerformance>
++ Student(firstName: String, lastName: String, matriculationNumber: int, studyProgram: String, eMail: String, examinationPerformances: ArrayList<ExaminationPerformance>): 
+
+
+package application.controller;
+ExamScreenController
+- examScreenVBox: ExamScreenVBox
+- windowButtonHBox: WindowButtonHBox
+- examinationPerformance: ExaminationPerformance
+- edit: boolean
++ ExamScreenController(): 
++ ExamScreenController(examinationPerformance: ExaminationPerformance): 
++ getCenterElement(): Node
++ getBottonElement(): Node
++ cancelScreenEvent(action: EventHandler<ActionEvent>): void
++ applyScreenEvent(action: EventHandler<ActionEvent>): void
++ createModel(): void
++ getModel(): ExaminationPerformance
++ wasEdit(): boolean
+
+
+package application.controller;
+MainScreenController
+- mainScreenHBox: TableButtonHBox
+- mainScreenTableView: MainScreenTableView
+- observableStudents: ObservableList<Student>
+- students: ArrayList<Student>
++ MainScreenController(): 
++ getCenterElement(): Node
++ getBottonElement(): Node
++ addNewScreenEvent(action: EventHandler<ActionEvent>): void
++ addStudent(student: Student): void
++ replaceStudent(student: Student): void
+- deleteStudent(): void
++ editScreenEvent(action: EventHandler<ActionEvent>): void
++ getSelectedEntry(): Student
+
+
+package application.controller;
+Controller
++ getCenterElement(): Node {abstract}
++ getBottonElement(): Node {abstract}
+
+
+package application.controller;
+ScreenController
+- root: BorderPane
+- controllerHierarchy: ArrayList<Controller>
++ start(primaryStage: Stage): void
+- setNewView(controller: Controller): void
+- setActionEvents(): void
+- goToNewView(): void
+- goToOldView(): void
+- applyAndGotoOldView(controller: Controller): void
+- editAndGotoNewView(controller: Controller): void
++ main(args: String[]): void {static}
+
+
+package application.controller;
+StartScreenController
+- startScreen: StartScreen
++ StartScreenController(): 
++ getCenterElement(): Node
++ getBottonElement(): Node
++ addNewScreenEvent(action: EventHandler<ActionEvent>): void
+
+
+package application.controller;
+StudentScreenController
+- studentScreenGridPane: StudentScreenGridPane
+- windowButtonHBox: WindowButtonHBox
+- student: Student
+- observableExaminationPerformances: ObservableList<ExaminationPerformance>
+- examinationPerformances: ArrayList<ExaminationPerformance>
+- edit: boolean
++ StudentScreenController(): 
++ StudentScreenController(student: Student): 
++ getCenterElement(): Node
++ getBottonElement(): Node
++ addNewScreenEvent(action: EventHandler<ActionEvent>): void
++ cancelScreenEvent(action: EventHandler<ActionEvent>): void
++ applyScreenEvent(action: EventHandler<ActionEvent>): void
++ createModel(): void
++ validEMail(eMail: String): boolean
++ getModel(): Student
++ addExam(examinationPerformance: ExaminationPerformance): void
++ replaceExam(examinationPerformance: ExaminationPerformance): void
+- deleteExam(): void
++ editScreenEvent(action: EventHandler<ActionEvent>): void
++ getSelectedEntry(): ExaminationPerformance
++ wasEdit(): boolean
+
+
+package application.controller.interfaces;
+Applicable<M>
++ applyScreenEvent(action: EventHandler<ActionEvent>): void
++ createModel(): void
++ getModel(): M
+
+
+package application.controller.interfaces;
+Startable
++ addNewScreenEvent(action: EventHandler<ActionEvent>): void
+
+
+package application.controller.interfaces;
+Editable<M>
++ editScreenEvent(action: EventHandler<ActionEvent>): void
++ getSelectedEntry(): M
+
+
+package application.controller.interfaces;
+Exitable
++ cancelScreenEvent(action: EventHandler<ActionEvent>): void
+
