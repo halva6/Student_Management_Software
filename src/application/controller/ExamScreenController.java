@@ -70,6 +70,12 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 		String examDescription = examScreenVBox.getUpperGridPane().getExamDescription().getText();
 		String examType = examScreenVBox.getUpperGridPane().getExamType().getValue();
 		int semester = examScreenVBox.getUpperGridPane().getSemester().getValue();
+		
+		if(examName.isBlank() || examDescription.isBlank()) 
+		{
+			windowButtonHBox.getErrorText().setText("There are empty fields!");
+			return;
+		}
 
 		double[] attemptResults = new double[3];
 		String[] attemptDates = new String[3];
@@ -82,10 +88,17 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 			{
 				try
 				{
-					attemptResults[i] = Double.valueOf(examScreenVBox.getLowerGridPane().getResults()[i].getText());
+					double result = Double.valueOf(examScreenVBox.getLowerGridPane().getResults()[i].getText());
+					
+					if(result > 5) 
+					{
+						windowButtonHBox.getErrorText().setText("Only grades from 1.0 to 5.0 are allowed!");
+						return;
+					}
+					attemptResults[i] = result;
 				} catch (NumberFormatException e)
 				{
-					System.out.println("Incorrect parameter type in one of the result input fields.");
+					windowButtonHBox.getErrorText().setText("Incorrect parameter type in one of the result input fields.");
 					return;
 				}
 
@@ -95,7 +108,7 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 				// Überprüft ob überhaupt ein Prüfungsergebnis eingetragen wurde
 				if (i == 0)
 				{
-					System.out.println("You need at least one exam result.");
+					windowButtonHBox.getErrorText().setText("You need at least one exam result.");
 					return;
 				}
 				attemps = i;

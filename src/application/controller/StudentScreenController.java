@@ -1,6 +1,8 @@
 package application.controller;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import application.controller.interfaces.Applicable;
 import application.controller.interfaces.Editable;
@@ -100,23 +102,36 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		} catch (NumberFormatException exception)
 		{
 			exception.printStackTrace();
-			System.out.println("Matriculation number is in the wrong format!");
+			windowButtonHBox.getErrorText().setText("Matriculation number is in the wrong format!");
 		}
 
 		String studyProgram = studentScreenGridPane.getStudyProgram().getText();
 		String eMail = studentScreenGridPane.getEMail().getText();
+		
+		if(! validEMail(eMail)) 
+		{
+			windowButtonHBox.getErrorText().setText("The email input does not correspond to the correct email formatting!");
+			return;
+		}
 
-		System.out.println(eMail);
 
 		if (firstName.isBlank() || lastName.isBlank() || studyProgram.isBlank() || eMail.isBlank())
 		{
-			System.out.println("There are empty fields!");
+			windowButtonHBox.getErrorText().setText("There are empty fields!");
 			return;
 		}
 
 		student = new Student(firstName, lastName, matriculationNumber, studyProgram, eMail, examinationPerformances);
 	}
-
+	
+	public boolean validEMail(String eMail) 
+	{
+		String regex = "^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(eMail);
+		
+		return matcher.matches();
+	}
 	@Override
 	public Student getModel()
 	{

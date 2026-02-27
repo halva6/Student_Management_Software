@@ -103,26 +103,37 @@ public class ScreenController extends Application
 		if (index == 2)
 		{
 			StudentScreenController studentScreenController = (StudentScreenController) controller;
+			Student student = studentScreenController.getModel();
+			if (student == null || student.getMatriculationNumber() == -1)
+			{
+				return;
+			}
 
 			if (studentScreenController.wasEdit())
 			{
-				((MainScreenController) controllerHierarchy.get(1)).replaceStudent(studentScreenController.getModel());
+				((MainScreenController) controllerHierarchy.get(1)).replaceStudent(student);
 			} else
 			{
-				((MainScreenController) controllerHierarchy.get(1)).addStudent(studentScreenController.getModel());
+				((MainScreenController) controllerHierarchy.get(1)).addStudent(student);
 			}
 		}
 		if (index == 3)
 		{
 			ExamScreenController examScreenController = (ExamScreenController) controller;
+			ExaminationPerformance examinationPerformance = examScreenController.getModel();
+
+			if (examinationPerformance == null)
+			{
+				return;
+			}
 
 			if (examScreenController.wasEdit())
 			{
-				((StudentScreenController) controllerHierarchy.get(2)).replaceExam(examScreenController.getModel());
+				((StudentScreenController) controllerHierarchy.get(2)).replaceExam(examinationPerformance);
 
 			} else
 			{
-				((StudentScreenController) controllerHierarchy.get(2)).addExam(examScreenController.getModel());
+				((StudentScreenController) controllerHierarchy.get(2)).addExam(examinationPerformance);
 			}
 		}
 
