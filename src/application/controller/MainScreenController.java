@@ -26,6 +26,21 @@ public class MainScreenController extends Controller implements Startable, Edita
 
 	public MainScreenController()
 	{
+		init();
+	}
+
+	public MainScreenController(ArrayList<Student> students)
+	{
+		for(Student student : students) 
+		{
+			observableStudents.add(student);
+		}
+		this.students = students;
+		init();
+	}
+
+	private void init()
+	{
 		mainScreenVBox = new MainScreenVBox();
 		tableButtonHBox = new TableButtonHBox("Student");
 
@@ -83,6 +98,7 @@ public class MainScreenController extends Controller implements Startable, Edita
 
 	public void addStudent(Student student)
 	{
+		System.out.println(student.toString());
 		observableStudents.add(student);
 		students.add(student);
 	}
@@ -102,6 +118,11 @@ public class MainScreenController extends Controller implements Startable, Edita
 			observableStudents.remove(selectedID);
 			students.remove(selectedID);
 		}
+	}
+
+	public ArrayList<Student> getStudents()
+	{
+		return students;
 	}
 
 	@Override

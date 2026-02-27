@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 public class ScreenController extends Application
 {
 	private BorderPane root;
+	private MenuBarController menuBar;
 
 	private ArrayList<Controller> controllerHierarchy = new ArrayList<>();
 	private int index = 0;
@@ -23,16 +24,19 @@ public class ScreenController extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-		controllerHierarchy.add(new StartScreenController());
 		controllerHierarchy.add(new MainScreenController());
 		controllerHierarchy.add(new StudentScreenController());
 		controllerHierarchy.add(new ExamScreenController());
 
+		menuBar = new MenuBarController();
 		try
 		{
 			root = new BorderPane();
 			Scene scene = new Scene(root, 900, 600);
 			setNewView(controllerHierarchy.get(index));
+
+			root.setTop(menuBar.getUniversalMenuBar());
+			setMenuBarActionEvents(primaryStage);
 
 			setActionEvents();
 
@@ -43,6 +47,23 @@ public class ScreenController extends Application
 		{
 			exception.printStackTrace();
 		}
+	}
+
+	private void setMenuBarActionEvents(Stage stage)
+	{
+		menuBar.getUniversalMenuBar().getLoad().setOnAction(e ->
+		{
+			controllerHierarchy.set(0, new MainScreenController(menuBar.loadFile(stage)));
+			setNewView(controllerHierarchy.get(0));
+			setActionEvents();
+		});
+
+		menuBar.getUniversalMenuBar().getSave().setOnAction(e ->
+		{
+			menuBar.saveFile(stage, ((MainScreenController) controllerHierarchy.get(0)).getStudents());
+		});
+
+		menuBar.getUniversalMenuBar().getGit().setOnAction(e -> getHostServices().showDocument("https://github.com/halva6/Student_Management_Software"));
 	}
 
 	private void setNewView(Controller controller)
@@ -78,11 +99,11 @@ public class ScreenController extends Application
 	private void goToNewView()
 	{
 		index++;
-		if (index == 2)
+		if (index == 1)
 		{
 			controllerHierarchy.set(index, new StudentScreenController());
 			setActionEvents();
-		} else if (index == 3)
+		} else if (index == 2)
 		{
 			controllerHierarchy.set(index, new ExamScreenController());
 			setActionEvents();
@@ -100,7 +121,7 @@ public class ScreenController extends Application
 	{
 		((Applicable<?>) controller).createModel();
 
-		if (index == 2)
+		if (index == 1)
 		{
 			StudentScreenController studentScreenController = (StudentScreenController) controller;
 			Student student = studentScreenController.getModel();
@@ -111,13 +132,13 @@ public class ScreenController extends Application
 
 			if (studentScreenController.wasEdit())
 			{
-				((MainScreenController) controllerHierarchy.get(1)).replaceStudent(student);
+				((MainScreenController) controllerHierarchy.get(0)).replaceStudent(student);
 			} else
 			{
-				((MainScreenController) controllerHierarchy.get(1)).addStudent(student);
+				((MainScreenController) controllerHierarchy.get(0)).addStudent(student);
 			}
 		}
-		if (index == 3)
+		if (index == 2)
 		{
 			ExamScreenController examScreenController = (ExamScreenController) controller;
 			ExaminationPerformance examinationPerformance = examScreenController.getModel();
@@ -129,11 +150,11 @@ public class ScreenController extends Application
 
 			if (examScreenController.wasEdit())
 			{
-				((StudentScreenController) controllerHierarchy.get(2)).replaceExam(examinationPerformance);
+				((StudentScreenController) controllerHierarchy.get(1)).replaceExam(examinationPerformance);
 
 			} else
 			{
-				((StudentScreenController) controllerHierarchy.get(2)).addExam(examinationPerformance);
+				((StudentScreenController) controllerHierarchy.get(1)).addExam(examinationPerformance);
 			}
 		}
 
@@ -143,17 +164,15 @@ public class ScreenController extends Application
 	private void editAndGotoNewView(Controller controller)
 	{
 		index++;
-		if (index == 2)
+		if (index == 1)
 		{
 			Student student = ((MainScreenController) controller).getSelectedEntry();
-			System.out.println(student.toString());
 			controllerHierarchy.set(index, new StudentScreenController(student));
 
 			setActionEvents();
-		} else if (index == 3)
+		} else if (index == 2)
 		{
 			ExaminationPerformance examinationPerformance = ((StudentScreenController) controller).getSelectedEntry();
-			System.out.println(examinationPerformance.toString());
 			controllerHierarchy.set(index, new ExamScreenController(examinationPerformance));
 
 			setActionEvents();

@@ -1,9 +1,12 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class ExaminationPerformance
+public class ExaminationPerformance implements Serializable
 {
+	private static final long serialVersionUID = 23L;
+
 	private String examName;
 	private String examDescription;
 	private String examType;
