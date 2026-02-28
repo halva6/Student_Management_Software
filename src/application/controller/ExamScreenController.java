@@ -9,6 +9,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 
+/**
+ * Controller for the exam screen.
+ *
+ * <p>
+ * This controller manages the exam screen view and handles user interactions
+ * for creating or editing {@link ExaminationPerformance} models. It supports
+ * apply and cancel actions as well as model creation.
+ * </p>
+ * <p>
+ * Extends {@link Controller} and implements:
+ * <ul>
+ * <li>{@link Exitable}</li>
+ * <li>{@link Applicable}</li>
+ * </ul>
+ * </p>
+ */
 public class ExamScreenController extends Controller implements Exitable, Applicable<ExaminationPerformance>
 {
 	private ExamScreenVBox examScreenVBox;
@@ -17,6 +33,9 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 	private ExaminationPerformance examinationPerformance;
 	private boolean edit;
 
+	/**
+	 * Creates a new ExamScreenController. That means a new exam will be created.
+	 */
 	public ExamScreenController()
 	{
 		edit = false;
@@ -24,6 +43,16 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 		windowButtonHBox = new WindowButtonHBox();
 	}
 
+	/**
+	 * Creates a ExamScreenController for editing an existing student.
+	 *
+	 * <p>
+	 * The views are initialized with the exam existing data and examination
+	 * performances.
+	 * </p>
+	 *
+	 * @param student the exam to edit
+	 */
 	public ExamScreenController(ExaminationPerformance examinationPerformance)
 	{
 		edit = true;
@@ -70,8 +99,8 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 		String examDescription = examScreenVBox.getUpperGridPane().getExamDescription().getText();
 		String examType = examScreenVBox.getUpperGridPane().getExamType().getValue();
 		int semester = examScreenVBox.getUpperGridPane().getSemester().getValue();
-		
-		if(examName.isBlank() || examDescription.isBlank()) 
+
+		if (examName.isBlank() || examDescription.isBlank())
 		{
 			windowButtonHBox.getErrorText().setText("There are empty fields!");
 			return;
@@ -84,13 +113,18 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 
 		for (int i = 0; i < examScreenVBox.getLowerGridPane().getResults().length; i++)
 		{
+			// checks if there are any empty fields
 			if (!examScreenVBox.getLowerGridPane().getResults()[i].getText().isBlank() && examScreenVBox.getLowerGridPane().getDates()[i].getValue() != null)
 			{
+				// Extracting the fields of the exam results with the corresponding dates and
+				// converting them into a usable format
 				try
 				{
+					// converts the grade as a string to a double
 					double result = Double.valueOf(examScreenVBox.getLowerGridPane().getResults()[i].getText());
-					
-					if(result > 5) 
+
+					// on my university there are only grades from 1.0 to 5.0
+					if (result > 5)
 					{
 						windowButtonHBox.getErrorText().setText("Only grades from 1.0 to 5.0 are allowed!");
 						return;
@@ -105,7 +139,7 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 				attemptDates[i] = examScreenVBox.getLowerGridPane().getDates()[i].getValue().toString();
 			} else
 			{
-				// Überprüft ob überhaupt ein Prüfungsergebnis eingetragen wurde
+				// Checks whether an exam result was entered at all
 				if (i == 0)
 				{
 					windowButtonHBox.getErrorText().setText("You need at least one exam result.");
@@ -125,6 +159,11 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 		return examinationPerformance;
 	}
 
+	/**
+	 * Indicates if the exam was created or only edited
+	 * 
+	 * @return {@code true} if in edit mode, otherwise {@code false}
+	 */
 	public boolean wasEdit()
 	{
 		return edit;

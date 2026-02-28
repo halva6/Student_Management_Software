@@ -11,6 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
+/**
+ * The GridPane represents the lower part of the exam screen. The results and
+ * dates of the exams are entered here. This class extends
+ * {@link javafx.scene.layout.GridPane}.
+ */
 public class LowerGridPane extends GridPane
 {
 	private TextField firstResult;
@@ -24,6 +29,9 @@ public class LowerGridPane extends GridPane
 	private TextField[] results = new TextField[3];
 	private DatePicker[] dates = new DatePicker[3];
 
+	/**
+	 * Creates an empty LowerGridPane
+	 */
 	public LowerGridPane()
 	{
 		// initialize nodes
@@ -43,6 +51,18 @@ public class LowerGridPane extends GridPane
 		createGrid();
 	}
 
+	/**
+	 * Creates a LowerGridPane with predefined attempt data.
+	 *
+	 * <p>
+	 * The given results and date strings are inserted into the corresponding fields
+	 * based on the number of attempts.
+	 * </p>
+	 *
+	 * @param results  an array containing the result values
+	 * @param dates    an array containing the date strings
+	 * @param attempts the number of valid attempts
+	 */
 	public LowerGridPane(double[] results, String[] dates, int attempts)
 	{
 		// initialize nodes
@@ -71,6 +91,9 @@ public class LowerGridPane extends GridPane
 		}
 	}
 
+	/**
+	 * It creates, sets the style, and adds the elements to the GridPane.
+	 */
 	private void createGrid()
 	{
 		// add nodes to the grid
@@ -111,6 +134,7 @@ public class LowerGridPane extends GridPane
 		GridPane.setHgrow(this, Priority.ALWAYS);
 		GridPane.setVgrow(this, Priority.ALWAYS);
 
+		// adds the TextFields and the DatePickers to an array, for a better handling
 		results[0] = firstResult;
 		results[1] = secondResult;
 		results[2] = thirdResult;
@@ -120,11 +144,21 @@ public class LowerGridPane extends GridPane
 		dates[2] = thirdDate;
 	}
 
+	/**
+	 * Returns the array of result text fields.
+	 *
+	 * @return an array containing the result TextFields
+	 */
 	public TextField[] getResults()
 	{
 		return results;
 	}
 
+	/**
+	 * Returns the array of date pickers.
+	 *
+	 * @return an array containing the DatePickers
+	 */
 	public DatePicker[] getDates()
 	{
 		return dates;

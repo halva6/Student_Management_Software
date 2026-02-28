@@ -2,7 +2,9 @@ package application.controller;
 
 import java.util.ArrayList;
 
+import application.controller.interfaces.Applicable;
 import application.controller.interfaces.Editable;
+import application.controller.interfaces.Exitable;
 import application.controller.interfaces.Startable;
 import application.model.Student;
 import application.view.TableButtonHBox;
@@ -14,6 +16,23 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 
+/**
+ * Controller for the main screen
+ *
+ * <p>
+ * This controller manages the main view, including student data display, search
+ * functionality, and actions for adding, editing, and deleting students. It
+ * supports filtering of students based on search input.
+ * </p>
+ * <p>
+ * Extends {@link Controller} and implements:
+ * <ul>
+ * <li>{@link Startable}</li>
+ * <li>{@link Exitable}</li>
+
+ * </ul>
+ * </p>
+ */
 public class MainScreenController extends Controller implements Startable, Editable<Student>
 {
 
@@ -24,14 +43,22 @@ public class MainScreenController extends Controller implements Startable, Edita
 	private ArrayList<Student> students = new ArrayList<>();
 	FilteredList<Student> filteredData = new FilteredList<>(observableStudents, p -> true);
 
+	/**
+	 * Creates a MainScreenController with no initial students.
+	 */
 	public MainScreenController()
 	{
 		init();
 	}
 
+	/**
+	 * Creates a MainScreenController with an initial list of students.
+	 *
+	 * @param students the list of students to display
+	 */
 	public MainScreenController(ArrayList<Student> students)
 	{
-		for(Student student : students) 
+		for (Student student : students)
 		{
 			observableStudents.add(student);
 		}
@@ -39,6 +66,10 @@ public class MainScreenController extends Controller implements Startable, Edita
 		init();
 	}
 
+	/**
+	 * The actual initialization of the class with the corresponding view elements.
+	 * Additionally, the search function is added via the appropriate ActionEvent.
+	 */
 	private void init()
 	{
 		mainScreenVBox = new MainScreenVBox();
@@ -69,7 +100,7 @@ public class MainScreenController extends Controller implements Startable, Edita
 					return true; // Filter matches matriculation number
 				} else if (student.getStudyProgram().toLowerCase().contains(lowerCaseFilter))
 				{
-					return true; // Filter matches last name
+					return true; // Filter matches study program
 				}
 				return false; // Does not match.
 			});
@@ -96,6 +127,11 @@ public class MainScreenController extends Controller implements Startable, Edita
 		tableButtonHBox.getAdd().setOnAction(action);
 	}
 
+	/**
+	 * Adds a student to the model.
+	 *
+	 * @param student the student to add
+	 */
 	public void addStudent(Student student)
 	{
 		System.out.println(student.toString());
@@ -103,6 +139,11 @@ public class MainScreenController extends Controller implements Startable, Edita
 		students.add(student);
 	}
 
+	/**
+	 * Replaces the selected student with a new entry.
+	 *
+	 * @param student the new student data
+	 */
 	public void replaceStudent(Student student)
 	{
 		int selectedID = mainScreenVBox.getMainScreenTableView().getSelectionModel().getSelectedIndex();
@@ -110,6 +151,9 @@ public class MainScreenController extends Controller implements Startable, Edita
 		students.set(selectedID, student);
 	}
 
+	/**
+	 * Deletes the selected student from the table.
+	 */
 	private void deleteStudent()
 	{
 		int selectedID = mainScreenVBox.getMainScreenTableView().getSelectionModel().getSelectedIndex();
@@ -120,6 +164,11 @@ public class MainScreenController extends Controller implements Startable, Edita
 		}
 	}
 
+	/**
+	 * Returns the list of all students.
+	 *
+	 * @return the student list
+	 */
 	public ArrayList<Student> getStudents()
 	{
 		return students;

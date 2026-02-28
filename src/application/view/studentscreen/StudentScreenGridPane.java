@@ -11,6 +11,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * GridPane layout for displaying and editing student information. This class
+ * extends {@link javafx.scene.layout.GridPane}. It offers the input options for
+ * the student's data.
+ */
 public class StudentScreenGridPane extends GridPane
 {
 
@@ -24,6 +29,9 @@ public class StudentScreenGridPane extends GridPane
 	private TableButtonHBox buttonHBox;
 	private StudentScreenTableView screenTableView;
 
+	/**
+	 * Creates an empty StudentScreenGridPane.
+	 */
 	public StudentScreenGridPane()
 	{
 		// text fields
@@ -54,6 +62,19 @@ public class StudentScreenGridPane extends GridPane
 
 	}
 
+	/**
+	 * Creates a StudentScreenGridPane with predefined student data.
+	 *
+	 * <p>
+	 * The given values are added to the corresponding input fields.
+	 * </p>
+	 *
+	 * @param firstName           the student's first name
+	 * @param lastName            the student's last name
+	 * @param matriculationNumber the student's matriculation number
+	 * @param studyProgram        the student's study program
+	 * @param eMail               the student's email address
+	 */
 	public StudentScreenGridPane(String firstName, String lastName, String matriculationNumber, String studyProgram, String eMail)
 	{
 		// text fields
@@ -84,6 +105,10 @@ public class StudentScreenGridPane extends GridPane
 
 	}
 
+	/**
+	 * Creates and configures a {@link javafx.scene.layout.VBox} for a better
+	 * arrangement of the table for the exam results.
+	 */
 	private void createExamVBox()
 	{
 		examVBox = new VBox();
@@ -96,6 +121,10 @@ public class StudentScreenGridPane extends GridPane
 		examVBox.getChildren().add(buttonHBox);
 	}
 
+	
+	/**
+	 * It creates, sets the style, and adds the elements to the GridPane.
+	 */
 	private void createGrid()
 	{
 		// add all to the GridPane
@@ -140,36 +169,72 @@ public class StudentScreenGridPane extends GridPane
 		GridPane.setVgrow(this, Priority.ALWAYS);
 	}
 
+	/**
+	 * Returns the first name text field.
+	 *
+	 * @return the first name TextField
+	 */
 	public TextField getFirstName()
 	{
 		return firstName;
 	}
 
+	/**
+	 * Returns the first name text field.
+	 *
+	 * @return the first name TextField
+	 */
 	public TextField getLastName()
 	{
 		return lastName;
 	}
 
+	/**
+	 * Returns the matriculation number text field.
+	 *
+	 * @return the matriculation number TextField
+	 */
 	public TextField getMatriculationNumber()
 	{
 		return matriculationNumber;
 	}
 
+	/**
+	 * Returns the study program text field.
+	 *
+	 * @return the study program TextField
+	 */
 	public TextField getStudyProgram()
 	{
 		return studyProgram;
 	}
 
+	/**
+	 * Returns the email text field.
+	 *
+	 * @return the email TextField
+	 */
 	public TextField getEMail()
 	{
 		return eMail;
 	}
 
+	/**
+	 * Returns a completed HBox with buttons to control the
+	 * {@link StudentScreenTableView}
+	 *
+	 * @return the TableButtonHBox containing buttons
+	 */
 	public TableButtonHBox getButtonHBox()
 	{
 		return buttonHBox;
 	}
 
+	/**
+	 * Returns the table view displaying examination performances.
+	 *
+	 * @return the StudentScreenTableView
+	 */
 	public StudentScreenTableView getScreenTableView()
 	{
 		return screenTableView;

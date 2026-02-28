@@ -10,6 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
+/**
+ * This class extends {@link javafx.scene.layout.GridPane} represents the upper
+ * part of the exam screen, providing fields for general data.
+ */
 public class UpperGridPane extends GridPane
 {
 	private TextField examName;
@@ -17,6 +21,9 @@ public class UpperGridPane extends GridPane
 	private ChoiceBox<String> examType;
 	private Spinner<Integer> semester;
 
+	/**
+	 * Creates an empty UpperGridPane.
+	 */
 	public UpperGridPane()
 	{
 		// initialize nodes
@@ -36,6 +43,14 @@ public class UpperGridPane extends GridPane
 		createGrid();
 	}
 
+	/**
+	 * Creates an UpperGridPane with predefined exam data.
+	 *
+	 * @param examName        the name of the exam
+	 * @param examDescription the description of the exam
+	 * @param examType        the type of the exam
+	 * @param semester        the semester number
+	 */
 	public UpperGridPane(String examName, String examDescription, String examType, int semester)
 	{
 		// initialize nodes
@@ -55,6 +70,9 @@ public class UpperGridPane extends GridPane
 		createGrid();
 	}
 
+	/**
+	 * It creates, sets the style, and adds the elements to the GridPane.
+	 */
 	private void createGrid()
 	{
 		// add nodes
@@ -87,21 +105,41 @@ public class UpperGridPane extends GridPane
 		GridPane.setVgrow(this, Priority.ALWAYS);
 	}
 
+	/**
+	 * Returns the exam name text field.
+	 *
+	 * @return the exam name TextField
+	 */
 	public TextField getExamName()
 	{
 		return examName;
 	}
 
+	/**
+	 * Returns the exam description text field.
+	 *
+	 * @return the exam description TextField
+	 */
 	public TextField getExamDescription()
 	{
 		return examDescription;
 	}
 
+	/**
+	 * Returns the exam type choice box.
+	 *
+	 * @return the ChoiceBox containing exam types
+	 */
 	public ChoiceBox<String> getExamType()
 	{
 		return examType;
 	}
 
+	/**
+	 * Returns the semester spinner.
+	 *
+	 * @return the Spinner for selecting the semester
+	 */
 	public Spinner<Integer> getSemester()
 	{
 		return semester;

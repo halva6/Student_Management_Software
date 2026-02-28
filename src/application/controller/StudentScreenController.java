@@ -18,6 +18,25 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 
+/**
+ * Controller for the student screen.
+ *
+ * <p>
+ * This controller manages the student screen view, handles user interactions,
+ * and creates or edits {@link Student} models. It also supports adding,
+ * editing, and deleting examination performances.
+ * </p>
+ * 
+ * <p>
+ * Extends {@link Controller} and implements:
+ * <ul>
+ * <li>{@link Startable}</li>
+ * <li>{@link Exitable}</li>
+ * <li>{@link Applicable}</li>
+ * <li>{@link Editable}</li>
+ * </ul>
+ * </p>
+ */
 public class StudentScreenController extends Controller implements Startable, Exitable, Applicable<Student>, Editable<ExaminationPerformance>
 {
 	private StudentScreenGridPane studentScreenGridPane;
@@ -25,11 +44,16 @@ public class StudentScreenController extends Controller implements Startable, Ex
 
 	private Student student;
 
+	// source: [3]
 	private ObservableList<ExaminationPerformance> observableExaminationPerformances = FXCollections.observableArrayList();
 	private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<>();
 
 	private boolean edit;
 
+	/**
+	 * Creates a new StudentScreenController. That means a new student will be
+	 * created.
+	 */
 	public StudentScreenController()
 	{
 		edit = false;
@@ -40,6 +64,16 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		studentScreenGridPane.getButtonHBox().getDelete().setOnAction(e -> deleteExam());
 	}
 
+	/**
+	 * Creates a StudentScreenController for editing an existing student.
+	 *
+	 * <p>
+	 * The views are initialized with the student's existing data and examination
+	 * performances.
+	 * </p>
+	 *
+	 * @param student the student to edit
+	 */
 	public StudentScreenController(Student student)
 	{
 		edit = true;
@@ -107,13 +141,12 @@ public class StudentScreenController extends Controller implements Startable, Ex
 
 		String studyProgram = studentScreenGridPane.getStudyProgram().getText();
 		String eMail = studentScreenGridPane.getEMail().getText();
-		
-		if(! validEMail(eMail)) 
+
+		if (!validEMail(eMail))
 		{
 			windowButtonHBox.getErrorText().setText("The email input does not correspond to the correct email formatting!");
 			return;
 		}
-
 
 		if (firstName.isBlank() || lastName.isBlank() || studyProgram.isBlank() || eMail.isBlank())
 		{
@@ -123,27 +156,44 @@ public class StudentScreenController extends Controller implements Startable, Ex
 
 		student = new Student(firstName, lastName, matriculationNumber, studyProgram, eMail, examinationPerformances);
 	}
-	
-	public boolean validEMail(String eMail) 
+
+	/**
+	 * Validates an email address using a regular expression.
+	 *
+	 * @param eMail the email address to validate
+	 * @return {@code true} if the email is valid, otherwise {@code false}
+	 */
+	public boolean validEMail(String eMail)
 	{
 		String regex = "^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(eMail);
-		
+
 		return matcher.matches();
 	}
+
 	@Override
 	public Student getModel()
 	{
 		return student;
 	}
 
+	/**
+	 * Adds an examination performance to the model.
+	 *
+	 * @param examinationPerformance the performance to add
+	 */
 	public void addExam(ExaminationPerformance examinationPerformance)
 	{
 		observableExaminationPerformances.add(examinationPerformance);
 		examinationPerformances.add(examinationPerformance);
 	}
 
+	/**
+	 * Replaces the selected examination performance.
+	 *
+	 * @param examinationPerformance the new performance
+	 */
 	public void replaceExam(ExaminationPerformance examinationPerformance)
 	{
 		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
@@ -152,6 +202,9 @@ public class StudentScreenController extends Controller implements Startable, Ex
 
 	}
 
+	/**
+	 * Deletes the selected examination performance from the table.
+	 */
 	private void deleteExam()
 	{
 		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
@@ -175,6 +228,11 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		return (selectedID >= 0) ? examinationPerformances.get(selectedID) : null;
 	}
 
+	/**
+	 * Indicates if the student was created or only edited
+	 * 
+	 * @return {@code true} if in edit mode, otherwise {@code false}
+	 */
 	public boolean wasEdit()
 	{
 		return edit;

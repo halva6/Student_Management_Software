@@ -13,6 +13,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Main application controller responsible for screen navigation.
+ *
+ * <p>
+ * This class extends {@link Application} and manages the overall view
+ * hierarchy. It switches between different controllers and handles navigation,
+ * apply, edit, and cancel actions.
+ * </p>
+ */
 public class ScreenController extends Application
 {
 	private BorderPane root;
@@ -21,6 +30,12 @@ public class ScreenController extends Application
 	private ArrayList<Controller> controllerHierarchy = new ArrayList<>();
 	private int index = 0;
 
+	/**
+	 * Starts the JavaFX application.
+	 *
+	 * @param primaryStage the primary stage for this application
+	 * @throws Exception if an error occurs during startup
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
@@ -49,6 +64,11 @@ public class ScreenController extends Application
 		}
 	}
 
+	/**
+	 * Registers action events for the menu bar.
+	 *
+	 * @param stage the primary stage used for file operations
+	 */
 	private void setMenuBarActionEvents(Stage stage)
 	{
 		menuBar.getUniversalMenuBar().getLoad().setOnAction(e ->
@@ -66,12 +86,25 @@ public class ScreenController extends Application
 		menuBar.getUniversalMenuBar().getGit().setOnAction(e -> getHostServices().showDocument("https://github.com/halva6/Student_Management_Software"));
 	}
 
+	/**
+	 * Updates the root layout with the specified controller view.
+	 *
+	 * @param controller the controller whose view should be displayed
+	 */
 	private void setNewView(Controller controller)
 	{
 		root.setCenter(controller.getCenterElement());
 		root.setBottom(controller.getBottonElement());
 	}
 
+	/**
+	 * Registers action events for all controllers in the hierarchy.
+	 *
+	 * <p>
+	 * This method binds navigation and model-related actions to controllers that
+	 * implement specific interfaces.
+	 * </p>
+	 */
 	private void setActionEvents()
 	{
 		for (Controller controller : controllerHierarchy)
@@ -96,6 +129,9 @@ public class ScreenController extends Application
 		}
 	}
 
+	/**
+	 * Navigates to the next view in the controller hierarchy.
+	 */
 	private void goToNewView()
 	{
 		index++;
@@ -111,12 +147,20 @@ public class ScreenController extends Application
 		setNewView(controllerHierarchy.get(index));
 	}
 
+	/**
+	 * Navigates back to the previous view.
+	 */
 	private void goToOldView()
 	{
 		index--;
 		setNewView(controllerHierarchy.get(index));
 	}
 
+	/**
+	 * Applies changes and navigates back to the previous view.
+	 *
+	 * @param controller the controller whose model should be created
+	 */
 	private void applyAndGotoOldView(Controller controller)
 	{
 		((Applicable<?>) controller).createModel();
@@ -161,6 +205,11 @@ public class ScreenController extends Application
 		goToOldView();
 	}
 
+	/**
+	 * Opens an edit view for the selected entry and navigates forward.
+	 *
+	 * @param controller the controller providing the selected entry
+	 */
 	private void editAndGotoNewView(Controller controller)
 	{
 		index++;

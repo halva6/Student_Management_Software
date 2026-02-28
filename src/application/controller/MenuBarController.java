@@ -13,15 +13,32 @@ import application.view.UniversalMenuBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the universal menu bar.
+ */
 public class MenuBarController
 {
 	private UniversalMenuBar universalMenuBar;
 
+	/**
+	 * Creates a new MenuBarController and initializes the menu bar.
+	 */
 	public MenuBarController()
 	{
 		universalMenuBar = new UniversalMenuBar();
 	}
 
+	/**
+	 * Loads student data from a selected file.
+	 *
+	 * <p>
+	 * The method uses object deserialization to read {@link Student} objects from
+	 * the file and returns them as a list.
+	 * </p>
+	 *
+	 * @param stage the stage used to display the file chooser
+	 * @return a list of loaded students
+	 */
 	public ArrayList<Student> loadFile(Stage stage)
 	{
 		FileChooser fileChooser = new FileChooser();
@@ -63,6 +80,17 @@ public class MenuBarController
 		return students;
 	}
 
+	/**
+	 * Saves student data to a selected file.
+	 *
+	 * <p>
+	 * The method serializes all {@link Student} objects and writes them to the
+	 * chosen file.
+	 * </p>
+	 *
+	 * @param stage    the stage used to display the file chooser
+	 * @param students the list of students to save
+	 */
 	public void saveFile(Stage stage, ArrayList<Student> students)
 	{
 		FileChooser fileChooser = new FileChooser();
@@ -87,6 +115,11 @@ public class MenuBarController
 
 	}
 
+	/**
+	 * Returns the universal menu bar.
+	 *
+	 * @return the UniversalMenuBar instance
+	 */
 	public UniversalMenuBar getUniversalMenuBar()
 	{
 		return universalMenuBar;
