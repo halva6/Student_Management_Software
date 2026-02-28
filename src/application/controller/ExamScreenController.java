@@ -46,12 +46,7 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 	/**
 	 * Creates a ExamScreenController for editing an existing student.
 	 *
-	 * <p>
-	 * The views are initialized with the exam existing data and examination
-	 * performances.
-	 * </p>
-	 *
-	 * @param student the exam to edit
+	 * @param examinationPerformance the exam to edit
 	 */
 	public ExamScreenController(ExaminationPerformance examinationPerformance)
 	{

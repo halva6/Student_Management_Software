@@ -5,7 +5,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 /**
- * This class extends {@linkjavafx.scene.control.MenuBar }, represents the menu
+ * This class extends {@link javafx.scene.control.MenuBar}, represents the menu
  * bar in the upper left corner of the screen. It provides functions such as
  * loading and saving student data from files.
  */
