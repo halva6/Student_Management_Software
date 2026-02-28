@@ -213,21 +213,34 @@ public class ScreenController extends Application
 	 */
 	private void editAndGotoNewView(Controller controller)
 	{
-		index++;
-		if (index == 1)
+		int tempIndex = this.index;
+		tempIndex++;
+		if (tempIndex == 1)
 		{
 			Student student = ((MainScreenController) controller).getSelectedEntry();
-			controllerHierarchy.set(index, new StudentScreenController(student));
+
+			if (student == null)
+			{
+				return;
+			}
+
+			controllerHierarchy.set(tempIndex, new StudentScreenController(student));
 
 			setActionEvents();
-		} else if (index == 2)
+		} else if (tempIndex == 2)
 		{
 			ExaminationPerformance examinationPerformance = ((StudentScreenController) controller).getSelectedEntry();
-			controllerHierarchy.set(index, new ExamScreenController(examinationPerformance));
+
+			if (examinationPerformance == null)
+			{
+				return;
+			}
+			controllerHierarchy.set(tempIndex, new ExamScreenController(examinationPerformance));
 
 			setActionEvents();
 		}
-		setNewView(controllerHierarchy.get(index));
+		this.index = tempIndex;
+		setNewView(controllerHierarchy.get(tempIndex));
 	}
 
 	public static void main(String[] args)

@@ -1,12 +1,13 @@
 package application.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-import application.controller.interfaces.Applicable;
 import application.controller.interfaces.Editable;
 import application.controller.interfaces.Exitable;
 import application.controller.interfaces.Startable;
 import application.model.Student;
+import application.view.DeleteAlert;
 import application.view.TableButtonHBox;
 import application.view.mainscreen.MainScreenVBox;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 
 /**
  * Controller for the main screen
@@ -163,8 +165,14 @@ public class MainScreenController extends Controller implements Startable, Edita
 		int selectedID = mainScreenVBox.getMainScreenTableView().getSelectionModel().getSelectedIndex();
 		if (selectedID >= 0)
 		{
-			observableStudents.remove(selectedID);
-			students.remove(selectedID);
+			// source [26]
+			DeleteAlert deleteAlert = new DeleteAlert("Do you want to delete this student?");
+			Optional<ButtonType> option = deleteAlert.showAndWait();
+			if (option.get() == ButtonType.OK)
+			{
+				observableStudents.remove(selectedID);
+				students.remove(selectedID);
+			}
 		}
 	}
 

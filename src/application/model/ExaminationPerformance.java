@@ -12,6 +12,7 @@ import java.util.Arrays;
  * calculates the final grade based on the best attempt result.
  * </p>
  */
+// source [25]
 public class ExaminationPerformance implements Serializable
 {
 	private static final long serialVersionUID = 23L;

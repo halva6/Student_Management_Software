@@ -24,8 +24,7 @@ public class Student implements Serializable
 
 	private String firstName;
 	private String lastName;
-	private int matriculationNumber; // TODO Unique machen der Matrikel-Nummber, also wenn die schon vergeben ist,
-										// soll sie nicht nochmal vergeben sein
+	private int matriculationNumber;
 	private String studyProgram;
 	private String eMail;
 

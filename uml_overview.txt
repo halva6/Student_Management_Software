@@ -11,12 +11,26 @@ TableButtonHBox
 
 
 package application.view.mainscreen;
+MainScreenVBox
+- seach: TextField
+- mainScreenTableView: MainScreenTableView
++ MainScreenVBox(): 
++ getSearch(): TextField
++ getMainScreenTableView(): MainScreenTableView
+
+
+package application.view.mainscreen;
 MainScreenTableView
 - firstNameColumn: TableColumn<Student,String>
 - lastNameColumn: TableColumn<Student,String>
 - matriculationNumberColumn: TableColumn<Student,Integer>
 - gradePointAvrageColumn: TableColumn<Student,Double>
 + MainScreenTableView(): 
+
+
+package application.view;
+DeleteAlert
++ DeleteAlert(text: String): 
 
 
 package application.view.studentscreen;
@@ -50,6 +64,17 @@ StudentScreenTableView
 - passedColumn: TableColumn<ExaminationPerformance,Boolean>
 - attemptColumn: TableColumn<ExaminationPerformance,Integer>
 + StudentScreenTableView(): 
+
+
+package application.view;
+UniversalMenuBar
+- load: MenuItem
+- save: MenuItem
+- git: MenuItem
++ UniversalMenuBar(): 
++ getLoad(): MenuItem
++ getSave(): MenuItem
++ getGit(): MenuItem
 
 
 package application.view.examscreen;
@@ -105,11 +130,6 @@ WindowButtonHBox
 + getErrorText(): Text
 
 
-package application.view.startscreen;
-StartScreen
-+ StartScreen(): 
-
-
 package application;
 Main
 + main(args: String[]): void {static}
@@ -144,6 +164,7 @@ Student
 - studyProgram: String
 - eMail: String
 - examinationPerformances: ArrayList<ExaminationPerformance>
++ Student(firstName: String, lastName: String, matriculationNumber: int, studyProgram: String, eMail: String, examinationPerformances: ArrayList<ExaminationPerformance>): 
 + getFirstName(): String
 + getLastName(): String
 + getMatriculationNumber(): int
@@ -151,7 +172,7 @@ Student
 + getEMail(): String
 + getGradePointAvrage(): double
 + getExaminationPerformances(): ArrayList<ExaminationPerformance>
-+ Student(firstName: String, lastName: String, matriculationNumber: int, studyProgram: String, eMail: String, examinationPerformances: ArrayList<ExaminationPerformance>): 
++ toString(): String
 
 
 package application.controller;
@@ -173,17 +194,20 @@ ExamScreenController
 
 package application.controller;
 MainScreenController
-- mainScreenHBox: TableButtonHBox
-- mainScreenTableView: MainScreenTableView
+- tableButtonHBox: TableButtonHBox
+- mainScreenVBox: MainScreenVBox
 - observableStudents: ObservableList<Student>
 - students: ArrayList<Student>
 + MainScreenController(): 
++ MainScreenController(students: ArrayList<Student>): 
+- init(): void
 + getCenterElement(): Node
 + getBottonElement(): Node
 + addNewScreenEvent(action: EventHandler<ActionEvent>): void
 + addStudent(student: Student): void
 + replaceStudent(student: Student): void
 - deleteStudent(): void
++ getStudents(): ArrayList<Student>
 + editScreenEvent(action: EventHandler<ActionEvent>): void
 + getSelectedEntry(): Student
 
@@ -197,8 +221,10 @@ Controller
 package application.controller;
 ScreenController
 - root: BorderPane
+- menuBar: MenuBarController
 - controllerHierarchy: ArrayList<Controller>
 + start(primaryStage: Stage): void
+- setMenuBarActionEvents(stage: Stage): void
 - setNewView(controller: Controller): void
 - setActionEvents(): void
 - goToNewView(): void
@@ -209,12 +235,12 @@ ScreenController
 
 
 package application.controller;
-StartScreenController
-- startScreen: StartScreen
-+ StartScreenController(): 
-+ getCenterElement(): Node
-+ getBottonElement(): Node
-+ addNewScreenEvent(action: EventHandler<ActionEvent>): void
+MenuBarController
+- universalMenuBar: UniversalMenuBar
++ MenuBarController(): 
++ loadFile(stage: Stage): ArrayList<Student>
++ saveFile(stage: Stage, students: ArrayList<Student>): void
++ getUniversalMenuBar(): UniversalMenuBar
 
 
 package application.controller;

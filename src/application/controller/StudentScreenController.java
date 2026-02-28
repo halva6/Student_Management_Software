@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +11,7 @@ import application.controller.interfaces.Exitable;
 import application.controller.interfaces.Startable;
 import application.model.ExaminationPerformance;
 import application.model.Student;
+import application.view.DeleteAlert;
 import application.view.WindowButtonHBox;
 import application.view.studentscreen.StudentScreenGridPane;
 import javafx.collections.FXCollections;
@@ -17,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 
 /**
  * Controller for the student screen.
@@ -141,22 +144,21 @@ public class StudentScreenController extends Controller implements Startable, Ex
 			// source [6]
 		} catch (NumberFormatException exception)
 		{
-			exception.printStackTrace();
 			windowButtonHBox.getErrorText().setText("Matriculation number is in the wrong format!");
 		}
 
 		String studyProgram = studentScreenGridPane.getStudyProgram().getText();
 		String eMail = studentScreenGridPane.getEMail().getText();
 
-		if (!validEMail(eMail))
-		{
-			windowButtonHBox.getErrorText().setText("The email input does not correspond to the correct email formatting!");
-			return;
-		}
-
 		if (firstName.isBlank() || lastName.isBlank() || studyProgram.isBlank() || eMail.isBlank())
 		{
 			windowButtonHBox.getErrorText().setText("There are empty fields!");
+			return;
+		}
+		
+		if (!validEMail(eMail))
+		{
+			windowButtonHBox.getErrorText().setText("The email input does not correspond to the correct email formatting!");
 			return;
 		}
 
@@ -217,8 +219,14 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
 		if (selectedID >= 0)
 		{
-			observableExaminationPerformances.remove(selectedID);
-			examinationPerformances.remove(selectedID);
+			// source [26]
+			DeleteAlert deleteAlert = new DeleteAlert("Do you want to delete this exam?");
+			Optional<ButtonType> option = deleteAlert.showAndWait();
+			if (option.get() == ButtonType.OK)
+			{
+				observableExaminationPerformances.remove(selectedID);
+				examinationPerformances.remove(selectedID);
+			}
 		}
 	}
 

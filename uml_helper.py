@@ -1,7 +1,7 @@
 import os
 
 src_path = "src/application"
-out_path = "output.txt"
+out_path = "uml_overview.txt"
 class_lsts = []
 
 
