@@ -58,6 +58,7 @@ public class ExaminationPerformance implements Serializable
 
 		for (int i = 0; i < attempts; i++)
 		{
+			// source [10]
 			grade = (attemptResults[i] < grade) ? attemptResults[i] : grade;
 		}
 

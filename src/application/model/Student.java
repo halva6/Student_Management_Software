@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * this class to a file later and to read it back from that file.
  * </p>
  */
+//source [25]
 public class Student implements Serializable
 {
 	private static final long serialVersionUID = 42L;
@@ -46,6 +47,7 @@ public class Student implements Serializable
 	 * @param eMail                   the email address
 	 * @param examinationPerformances the list of examination performances
 	 */
+	// source [11]
 	public Student(String firstName, String lastName, int matriculationNumber, String studyProgram, String eMail, ArrayList<ExaminationPerformance> examinationPerformances)
 	{
 		this.firstName = firstName;
@@ -60,9 +62,12 @@ public class Student implements Serializable
 			gradePointAvrage += examinationPerformance.getGrade();
 		}
 
+		// source [7]
 		try
 		{
 			gradePointAvrage /= examinationPerformances.size();
+
+			// source [12]
 		} catch (ArithmeticException e)
 		{
 			e.printStackTrace();

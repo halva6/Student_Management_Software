@@ -39,6 +39,7 @@ public class TableButtonHBox extends HBox
 
 		getChildren().addAll(add, edit, delete);
 		setSpacing(40);
+		// source [18]
 		setPadding(new Insets(20, 0, 20, 0));
 		setAlignment(Pos.CENTER);
 	}
@@ -49,6 +50,7 @@ public class TableButtonHBox extends HBox
 	 * @param tooltipText the text displayed in the tooltip
 	 * @return a configured Tooltip instance
 	 */
+	// source [13]
 	private Tooltip createTooltip(String tooltipText)
 	{
 		Tooltip tooltip = new Tooltip(tooltipText);

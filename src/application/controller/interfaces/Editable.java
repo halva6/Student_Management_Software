@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
  * @param <M> the type of the selected entry. It can be a {@link Student} or an
  *            {@link ExaminationPerformance}
  */
+//source [1]
 public interface Editable<M>
 {
 	/**

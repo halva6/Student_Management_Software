@@ -29,7 +29,7 @@ import javafx.scene.Node;
  * <ul>
  * <li>{@link Startable}</li>
  * <li>{@link Exitable}</li>
-
+ * 
  * </ul>
  * </p>
  */
@@ -39,8 +39,11 @@ public class MainScreenController extends Controller implements Startable, Edita
 	private TableButtonHBox tableButtonHBox;
 	private MainScreenVBox mainScreenVBox;
 
+	// source [2] [3]
 	private ObservableList<Student> observableStudents = FXCollections.observableArrayList();
+	// source [11]
 	private ArrayList<Student> students = new ArrayList<>();
+	// source [21]
 	FilteredList<Student> filteredData = new FilteredList<>(observableStudents, p -> true);
 
 	/**
@@ -77,6 +80,7 @@ public class MainScreenController extends Controller implements Startable, Edita
 
 		tableButtonHBox.getDelete().setOnAction(e -> deleteStudent());
 
+		// source [21]
 		mainScreenVBox.getSearch().textProperty().addListener((observable, oldValue, newValue) ->
 		{
 			filteredData.setPredicate(student ->
@@ -105,7 +109,7 @@ public class MainScreenController extends Controller implements Startable, Edita
 				return false; // Does not match.
 			});
 		});
-
+		// source [21]
 		mainScreenVBox.getMainScreenTableView().setItems(filteredData);
 	}
 
@@ -185,6 +189,7 @@ public class MainScreenController extends Controller implements Startable, Edita
 	{
 		int selectedID = mainScreenVBox.getMainScreenTableView().getSelectionModel().getSelectedIndex();
 
+		// source [10]
 		return (selectedID >= 0) ? students.get(selectedID) : null;
 	}
 }

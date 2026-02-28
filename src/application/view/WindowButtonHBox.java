@@ -39,6 +39,7 @@ public class WindowButtonHBox extends HBox
 
 		getChildren().addAll(errorText, apply, cancel);
 		setSpacing(50);
+		// source [18]
 		setPadding(new Insets(20, 20, 20, 0));
 		setAlignment(Pos.CENTER_RIGHT);
 	}
@@ -49,6 +50,7 @@ public class WindowButtonHBox extends HBox
 	 * @param tooltipText the text displayed in the tooltip
 	 * @return a configured Tooltip instance
 	 */
+	// source [13]
 	private Tooltip createTooltip(String tooltipText)
 	{
 		Tooltip tooltip = new Tooltip(tooltipText);

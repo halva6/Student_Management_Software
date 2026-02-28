@@ -32,10 +32,12 @@ public class UpperGridPane extends GridPane
 		examDescription = new TextField();
 		examDescription.setPromptText("Description of the exam");
 
+		// source [8]
 		examType = new ChoiceBox<>();
 		examType.getItems().addAll("Examination", "Academic paper");
 		examType.setValue("Examination");
 
+		// source [9]
 		semester = new Spinner<>();
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
 		semester.setValueFactory(valueFactory);
@@ -59,10 +61,12 @@ public class UpperGridPane extends GridPane
 		this.examDescription = new TextField(examDescription);
 		this.examDescription.setPromptText("Description of the exam");
 
+		// source [8]
 		this.examType = new ChoiceBox<>();
 		this.examType.getItems().addAll("Examination", "Academic paper");
 		this.examType.setValue(examType);
 
+		// source [9]
 		this.semester = new Spinner<>();
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, semester);
 		this.semester.setValueFactory(valueFactory);
@@ -87,6 +91,7 @@ public class UpperGridPane extends GridPane
 		add(semester, 1, 3);
 
 		// constrains
+		// source [20]
 		ColumnConstraints leftConstraint = new ColumnConstraints();
 		leftConstraint.setPercentWidth(50);
 		getColumnConstraints().add(leftConstraint);
@@ -101,6 +106,7 @@ public class UpperGridPane extends GridPane
 		setHeight(USE_COMPUTED_SIZE);
 		setPadding(new Insets(20));
 
+		// source [19]
 		GridPane.setHgrow(this, Priority.ALWAYS);
 		GridPane.setVgrow(this, Priority.ALWAYS);
 	}

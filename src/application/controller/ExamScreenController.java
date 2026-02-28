@@ -97,7 +97,9 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 	{
 		String examName = examScreenVBox.getUpperGridPane().getExamName().getText();
 		String examDescription = examScreenVBox.getUpperGridPane().getExamDescription().getText();
+		// source [8]
 		String examType = examScreenVBox.getUpperGridPane().getExamType().getValue();
+		// source [9]
 		int semester = examScreenVBox.getUpperGridPane().getSemester().getValue();
 
 		if (examName.isBlank() || examDescription.isBlank())
@@ -114,6 +116,7 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 		for (int i = 0; i < examScreenVBox.getLowerGridPane().getResults().length; i++)
 		{
 			// checks if there are any empty fields
+			// source [5]
 			if (!examScreenVBox.getLowerGridPane().getResults()[i].getText().isBlank() && examScreenVBox.getLowerGridPane().getDates()[i].getValue() != null)
 			{
 				// Extracting the fields of the exam results with the corresponding dates and
@@ -130,12 +133,15 @@ public class ExamScreenController extends Controller implements Exitable, Applic
 						return;
 					}
 					attemptResults[i] = result;
+
+					// source [6]
 				} catch (NumberFormatException e)
 				{
 					windowButtonHBox.getErrorText().setText("Incorrect parameter type in one of the result input fields.");
 					return;
 				}
 
+				// source [5]
 				attemptDates[i] = examScreenVBox.getLowerGridPane().getDates()[i].getValue().toString();
 			} else
 			{

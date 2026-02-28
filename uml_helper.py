@@ -46,7 +46,7 @@ def getMethods(line: str) -> str:
         modifier = split[1]
         index = 2
     elif( "(" in split[1]):
-        # Konstruktor
+        # constructor
         index:int = 0
 
     operator:str = getVisibilityOperator(split[0])
@@ -113,6 +113,7 @@ def read_file(element) -> list:
     class_lst.append("\n")
     return class_lst
 
+# source: https://www.geeksforgeeks.org/python/python-loop-through-folders-and-files-in-directory/
 def scan_dir(src_path):
     for element in os.scandir(src_path):
         if element.is_file():

@@ -41,14 +41,16 @@ public class MenuBarController
 	 */
 	public ArrayList<Student> loadFile(Stage stage)
 	{
+		// source [24]
 		FileChooser fileChooser = new FileChooser();
 		File loadedFile = fileChooser.showOpenDialog(stage);
 
 		ArrayList<Student> students = new ArrayList<>();
-
+		
+		// source [24]
 		if (loadedFile != null)
 		{
-
+			// source [25]
 			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(loadedFile)))
 			{
 				Object obj;
@@ -93,11 +95,14 @@ public class MenuBarController
 	 */
 	public void saveFile(Stage stage, ArrayList<Student> students)
 	{
+		// source [24]
 		FileChooser fileChooser = new FileChooser();
 		File saveFile = fileChooser.showSaveDialog(stage);
 
+		// source [24]
 		if (saveFile != null)
 		{
+			// source [25]
 			try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile)))
 			{
 				// Write each object in the list

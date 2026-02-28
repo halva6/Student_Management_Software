@@ -91,6 +91,7 @@ public class ScreenController extends Application
 	 *
 	 * @param controller the controller whose view should be displayed
 	 */
+	// source [17]
 	private void setNewView(Controller controller)
 	{
 		root.setCenter(controller.getCenterElement());

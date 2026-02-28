@@ -22,6 +22,7 @@ public class LowerGridPane extends GridPane
 	private TextField secondResult;
 	private TextField thirdResult;
 
+	// source [5]
 	private DatePicker firstDate;
 	private DatePicker secondDate;
 	private DatePicker thirdDate;
@@ -84,7 +85,8 @@ public class LowerGridPane extends GridPane
 		for (int i = 0; i < attempts; i++)
 		{
 			this.results[i].setText(String.valueOf(results[i]));
-
+			
+			// source [14] [15]
 			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate dateTime = LocalDate.parse(dates[i], dateTimeFormatter);
 			this.dates[i].setValue(dateTime);
@@ -112,6 +114,7 @@ public class LowerGridPane extends GridPane
 		add(thirdDate, 2, 3);
 
 		// constrains
+		// source [20]
 		ColumnConstraints leftConstraint = new ColumnConstraints();
 		leftConstraint.setPercentWidth(20);
 		getColumnConstraints().add(leftConstraint);
@@ -131,6 +134,7 @@ public class LowerGridPane extends GridPane
 		setHeight(USE_COMPUTED_SIZE);
 		setPadding(new Insets(20));
 
+		// source [19]
 		GridPane.setHgrow(this, Priority.ALWAYS);
 		GridPane.setVgrow(this, Priority.ALWAYS);
 

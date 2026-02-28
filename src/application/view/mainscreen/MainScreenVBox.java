@@ -28,6 +28,7 @@ public class MainScreenVBox extends VBox
 
 		getChildren().addAll(seach, mainScreenTableView);
 		setSpacing(10);
+		// source [18]
 		setPadding(new Insets(20, 20, 20, 20));
 		setAlignment(Pos.CENTER);
 	}

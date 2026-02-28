@@ -44,8 +44,9 @@ public class StudentScreenController extends Controller implements Startable, Ex
 
 	private Student student;
 
-	// source: [3]
+	// source [2] [3]
 	private ObservableList<ExaminationPerformance> observableExaminationPerformances = FXCollections.observableArrayList();
+	// source [11]
 	private ArrayList<ExaminationPerformance> examinationPerformances = new ArrayList<>();
 
 	private boolean edit;
@@ -60,7 +61,9 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		studentScreenGridPane = new StudentScreenGridPane();
 		windowButtonHBox = new WindowButtonHBox();
 
+		// source [3]
 		studentScreenGridPane.getScreenTableView().setItems(observableExaminationPerformances);
+
 		studentScreenGridPane.getButtonHBox().getDelete().setOnAction(e -> deleteExam());
 	}
 
@@ -87,6 +90,7 @@ public class StudentScreenController extends Controller implements Startable, Ex
 			examinationPerformances.add(examinationPerformance);
 		}
 
+		// source [3]
 		studentScreenGridPane.getScreenTableView().setItems(observableExaminationPerformances);
 		studentScreenGridPane.getButtonHBox().getDelete().setOnAction(e -> deleteExam());
 	}
@@ -133,6 +137,8 @@ public class StudentScreenController extends Controller implements Startable, Ex
 		try
 		{
 			matriculationNumber = Integer.valueOf(studentScreenGridPane.getMatriculationNumber().getText());
+
+			// source [6]
 		} catch (NumberFormatException exception)
 		{
 			exception.printStackTrace();
@@ -163,6 +169,7 @@ public class StudentScreenController extends Controller implements Startable, Ex
 	 * @param eMail the email address to validate
 	 * @return {@code true} if the email is valid, otherwise {@code false}
 	 */
+	// source [20]
 	public boolean validEMail(String eMail)
 	{
 		String regex = "^[a-zA-Z0-9_!#$%&amp;'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
@@ -225,6 +232,7 @@ public class StudentScreenController extends Controller implements Startable, Ex
 	public ExaminationPerformance getSelectedEntry()
 	{
 		int selectedID = studentScreenGridPane.getScreenTableView().getSelectionModel().getSelectedIndex();
+		// source [10]
 		return (selectedID >= 0) ? examinationPerformances.get(selectedID) : null;
 	}
 
