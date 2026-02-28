@@ -23,3 +23,6 @@
 hs_err_pid*
 replay_pid*
 /bin/
+
+# The documantation is in the source code, for a clearer documentation you can generate it yourself 
+/doc/
