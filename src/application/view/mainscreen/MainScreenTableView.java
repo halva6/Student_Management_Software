@@ -25,18 +25,28 @@ public class MainScreenTableView extends TableView<Student>
 	{
 		firstNameColumn = new TableColumn<>("First Name");
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		// source [28]
+		firstNameColumn.setSortable(true);
 		getColumns().add(firstNameColumn);
 
 		lastNameColumn = new TableColumn<>("Last Name");
 		lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		lastNameColumn.setSortable(true);
+		getColumns().add(lastNameColumn);
+
+		lastNameColumn = new TableColumn<>("Study Program");
+		lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("studyProgram"));
+		lastNameColumn.setSortable(true);
 		getColumns().add(lastNameColumn);
 
 		matriculationNumberColumn = new TableColumn<>("Matriculation Number");
 		matriculationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("matriculationNumber"));
+		matriculationNumberColumn.setSortable(true);
 		getColumns().add(matriculationNumberColumn);
 
 		gradePointAvrageColumn = new TableColumn<>("Grade Point Avrage");
 		gradePointAvrageColumn.setCellValueFactory(new PropertyValueFactory<>("gradePointAvrage"));
+		gradePointAvrageColumn.setSortable(true);
 		getColumns().add(gradePointAvrageColumn);
 
 		setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);

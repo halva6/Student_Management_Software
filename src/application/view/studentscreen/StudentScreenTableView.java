@@ -27,22 +27,28 @@ public class StudentScreenTableView extends TableView<ExaminationPerformance>
 	{
 		semesterColumn = new TableColumn<>("Semester");
 		semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semester"));
+		// source [28]
+		semesterColumn.setSortable(true);
 		getColumns().add(semesterColumn);
 
 		examColumn = new TableColumn<>("Exam");
 		examColumn.setCellValueFactory(new PropertyValueFactory<>("examName"));
+		examColumn.setSortable(true);
 		getColumns().add(examColumn);
 
 		gradeColumn = new TableColumn<>("Grade");
 		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+		gradeColumn.setSortable(true);
 		getColumns().add(gradeColumn);
 
 		passedColumn = new TableColumn<>("Passed");
 		passedColumn.setCellValueFactory(new PropertyValueFactory<>("passed"));
+		passedColumn.setSortable(true);
 		getColumns().add(passedColumn);
 
 		attemptColumn = new TableColumn<>("Attempts");
 		attemptColumn.setCellValueFactory(new PropertyValueFactory<>("attempts"));
+		attemptColumn.setSortable(true);
 		getColumns().add(attemptColumn);
 
 		setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);

@@ -13,6 +13,7 @@ import application.view.mainscreen.MainScreenVBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -111,8 +112,14 @@ public class MainScreenController extends Controller implements Startable, Edita
 				return false; // Does not match.
 			});
 		});
-		// source [21]
-		mainScreenVBox.getMainScreenTableView().setItems(filteredData);
+		
+		// source [27]
+	    SortedList<Student> sortedData = new SortedList<>(filteredData);
+	    sortedData.comparatorProperty().bind(
+	            mainScreenVBox.getMainScreenTableView().comparatorProperty()
+	    );
+
+	    mainScreenVBox.getMainScreenTableView().setItems(sortedData);
 	}
 
 	@Override
